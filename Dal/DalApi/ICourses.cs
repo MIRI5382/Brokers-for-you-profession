@@ -1,0 +1,14 @@
+﻿using Bl.Do;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Dal.DalApi
+{
+    internal interface ICourses:ICrud<Course>
+    {
+        public Course? GetById(int CodeCourse);
+    }
+}

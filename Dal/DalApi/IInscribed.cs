@@ -1,0 +1,15 @@
+﻿using Bl.Do;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Dal.DalApi
+{
+    internal interface IInscribed:ICrud<Inscribed>
+    {
+        public Inscribed? GetById(string tz);
+
+    }
+}
