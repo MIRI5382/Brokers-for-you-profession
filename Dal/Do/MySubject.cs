@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Bl.Do
+namespace Dal.Do
 {
     public partial class MySubject
     {
@@ -24,6 +24,7 @@ namespace Bl.Do
         public string? ContactManPhone { get; set; }
         public int? MaxNumInscribed { get; set; }
         public int? NumInscribed { get; set; }
+        public string? Categury { get; set; }
 
         public virtual ICollection<Course> Courses { get; set; }
         public virtual ICollection<GivenCourse> GivenCourses { get; set; }

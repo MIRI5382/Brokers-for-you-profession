@@ -1,4 +1,5 @@
-﻿using Bl.Do;
+﻿
+using Dal.Do;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace Dal.DalApi
     public interface ISubjects:ICrud<MySubject>
     {
         public List<MySubject>? GetByName(string  NameSubject);
+        //public List<MySubject> GetBySivog(MySubject sivog);
 
     }
 }

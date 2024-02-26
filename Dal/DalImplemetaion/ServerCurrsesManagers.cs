@@ -1,5 +1,6 @@
-﻿using Bl.Do;
+﻿
 using Dal.DalApi;
+using Dal.Do;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

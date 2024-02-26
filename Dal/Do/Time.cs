@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Bl.Do
+namespace Dal.Do
 {
     public partial class Time
     {

@@ -1,5 +1,6 @@
-﻿using Bl.Do;
+﻿
 using Dal.DalApi;
+using Dal.Do;
 
 namespace Dal.DalImplemetaion
 {

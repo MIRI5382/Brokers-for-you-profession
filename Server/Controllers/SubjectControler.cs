@@ -1,4 +1,4 @@
-﻿using Bl.Do;
+﻿using Dal.Do;
 using Bo;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +18,10 @@ namespace Server.Controllers
         public List<MySubject> GetAllSubject() =>      
             bl.blsubjects.GetAll();
 
+        [Route("GetBySivog/{sivog}")]
+        [HttpGet]
+        public List<MySubject> GetSubjectBySivog(MySubject sivog) => 
+            bl.blsubjects.GetBySivog(sivog);
 
         [Route("GetSubjectByName")]
         [HttpGet]
@@ -28,9 +32,7 @@ namespace Server.Controllers
         [HttpPost]
         public int Post(MySubject s) => 
             bl.blsubjects.Post(s);
-
-        
-       
+      
 
 
     }
