@@ -1,6 +1,7 @@
 ﻿
 using Dal.DalApi;
 using Dal.Do;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dal.DalImplemetaion
 {
@@ -16,8 +17,8 @@ namespace Dal.DalImplemetaion
             return true;
         }
 
-        public List<Course> GetAll()=>
-            db.Courses.ToList<Course>();
+        public List<Course>? GetAll()=>
+            db.Courses.Include(x=> x.CodeSubjectNavigation).ToList<Course>();
     
 
         public Course? GetById(int CodeCourse)=>

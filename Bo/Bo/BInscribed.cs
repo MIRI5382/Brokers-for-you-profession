@@ -9,7 +9,7 @@ namespace Bl.Bo
     public class BInscribed
     {
         public BInscribed(){ }
-        public string TzInscribed { get; set; } = null!;
+        public string? TzInscribed { get; set; } = null!;
         public string? InscribedName { get; set; }
         public int? Age { get; set; }
         public string? SortInscribed { get; set; }

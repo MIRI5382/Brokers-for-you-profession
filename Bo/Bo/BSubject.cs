@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dal.Do;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace Bl.Bo
     public class BSubject
     {
         public BSubject() { }
-        public int CodeSubject { get; set; }
+        public int? CodeSubject { get; set; }
         public string? SubjectName { get; set; }
         public string? SortStudents { get; set; }
         public int? Price { get; set; }
@@ -21,6 +22,10 @@ namespace Bl.Bo
         public string? ContactManPhone { get; set; }
         public int? MaxNumInscribed { get; set; }
         public int? NumInscribed { get; set; }
+        public string? Categury { get; set; }
+        public List<BCours>? SCourses { get;  set; }=new List<BCours>();
+        public List<BInscribed>? SInscribed { get;  set; }=new List<BInscribed>();
+        public BlGivenCourse? SGivenCourse { get;  set; }
 
     }
 }

@@ -23,25 +23,15 @@ namespace Dal.DalImplemetaion
         public bool Delete(MySubject t)
         {
             db.MySubjects.Remove(t);
+            db.SaveChanges();
             return true;
         }    
        
-        //public List<MySubject> GetBySivog(MySubject sivog)
-        //{       
-        //    List <MySubject> all = db.MySubjects.ToList<MySubject>();
-        //    if (sivog.City != null)        
-        //        mapAll=GetSivog(x => x.City == sivog.City);           
-        //    if (sivog.SortStudents != null)           
-        //        mapAll=GetSivog(x => x.SortStudents == sivog.SortStudents);           
-        //    if (sivog.Categury == null)         
-        //        mapAll=GetSivog(x => x.Categury == sivog.Categury);           
-        //    return mapAll;
-        //}
-        //private List<MySubject> GetSivog(Predicate<MySubject> sivog)=>
-        //    db.MySubjects.ToList<MySubject>().FindAll(sivog);
-        
-            public List<MySubject> GetAll() =>
-                db.MySubjects.Include(x=>x.Courses).ToList<MySubject>();
+            public List<MySubject>? GetAll() =>
+                db.MySubjects.Include(x=>x.Courses).ThenInclude(c=>c.Times)
+                 .Include(x => x.Inscribeds)
+                 .Include(x => x.GivenCourses)
+               .ToList<MySubject>();
 
         public List<MySubject>? GetByName(string NameSubject) =>
                 db.MySubjects.ToList<MySubject>().FindAll(x=>x.SubjectName == NameSubject);
@@ -50,7 +40,8 @@ namespace Dal.DalImplemetaion
 
         public int Post(MySubject t)
         {                                            
-            var newt= db.MySubjects.Add(t);               
+            var newt= db.MySubjects.Add(t);
+            db.SaveChanges();
             db.MySubjects.ToList<MySubject>().ForEach(x => count++);
             return newt.Entity.CodeSubject;
         }

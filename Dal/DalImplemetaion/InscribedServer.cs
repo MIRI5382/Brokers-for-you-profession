@@ -23,7 +23,7 @@ namespace Dal.DalImplemetaion
                 return true;
             }
 
-            public List<Inscribed> GetAll() =>
+            public List<Inscribed>? GetAll() =>
                 db.Inscribeds.ToList<Inscribed>();
 
             public Inscribed? GetById(string t) =>
@@ -43,6 +43,7 @@ namespace Dal.DalImplemetaion
             public int Post(Inscribed t)
             {
                 db.Inscribeds.Add(t);
+                db.SaveChanges();
                 db.Inscribeds.ToList<Inscribed>().ForEach(x => count++);
                 return count;
             }

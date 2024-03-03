@@ -24,7 +24,7 @@ namespace Dal.DalImplemetaion
            return true;
         }
       
-        public List<GivenCourse> GetAll()=>
+        public List<GivenCourse>? GetAll()=>
             db.GivenCourses.ToList< GivenCourse>();       
 
         public GivenCourse? GetById(string t)=>

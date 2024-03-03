@@ -15,10 +15,14 @@ namespace Bo
             ServiceCollection servBCollection = new ServiceCollection();
             servBCollection.AddSingleton<DalManager>();
             servBCollection.AddSingleton<ISubject, ServerceBSubject>();
-            //servBCollection.AddSingleton<ServiceBInscribed>();
+            servBCollection.AddSingleton<ServerBCours>();
+            servBCollection.AddSingleton<ServiceBInscribed>();
+            servBCollection.AddSingleton<BServGivenCours>();
+            servBCollection.AddSingleton<ServiceBInscribed>();
+            servBCollection.AddSingleton<SevicTime>();
 
             //בנית מנהל של סרויסים
-            var servprovaider= servBCollection.BuildServiceProvider();
+            var servprovaider = servBCollection.BuildServiceProvider();
 
             //נגשים לאוביקט שהפרווידר מנהל
             blsubjects = servprovaider.GetRequiredService<ISubject>();

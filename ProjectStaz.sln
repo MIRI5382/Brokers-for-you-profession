@@ -3,11 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bl", "Bo\Bl.csproj", "{EAD07D50-9940-4F82-9C1E-EDF3E15637AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bl", "Bo\Bl.csproj", "{EAD07D50-9940-4F82-9C1E-EDF3E15637AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dal", "Dal\Dal.csproj", "{39339FDF-9426-479C-AF90-E125F2DDD02E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dal", "Dal\Dal.csproj", "{39339FDF-9426-479C-AF90-E125F2DDD02E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{F708E58D-A42B-4D33-80A3-1081E6C2D6A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "Server\Server.csproj", "{F708E58D-A42B-4D33-80A3-1081E6C2D6A4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{97433223-7943-4B56-ADD7-B47A7A34B657}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,5 @@
-﻿using Dal.Do;
+﻿using Bl.Bo;
+using Dal.Do;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace Bl.BlApi
 {
-    public interface ISubject:ICrod<MySubject>
+    public interface ISubject:ICrod<BSubject>
     {
-        public List<MySubject>? GetByName(string NameSubject);
-        public List<MySubject> GetBySivog(MySubject sivog);
+        public List<BSubject>? GetByName(string NameSubject);
+        public List<BSubject> GetBySivog(SivogSubject sivog);
+        public List<BSubject>? GetSubjectClos();
     }
 }

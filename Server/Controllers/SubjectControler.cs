@@ -1,6 +1,7 @@
 ﻿using Dal.Do;
 using Bo;
 using Microsoft.AspNetCore.Mvc;
+using Bl.Bo;
 
 namespace Server.Controllers
 {
@@ -15,25 +16,29 @@ namespace Server.Controllers
         }
         [Route("GetAllSubject")]
         [HttpGet]
-        public List<MySubject> GetAllSubject() =>      
+        public List<BSubject> GetAllSubject() =>      
             bl.blsubjects.GetAll();
 
-        [Route("GetBySivog/{sivog}")]
-        [HttpGet]
-        public List<MySubject> GetSubjectBySivog(MySubject sivog) => 
-            bl.blsubjects.GetBySivog(sivog);
+        [Route("GetBySivog")]
+        [HttpPost]
+        public List<BSubject> GetSubjectBySivog(SivogSubject s) => 
+            bl.blsubjects.GetBySivog(s);
 
         [Route("GetSubjectByName")]
         [HttpGet]
-        public List<MySubject>? GetByName(string name) =>
+        public List<BSubject>? GetByName(string name) =>
             bl.blsubjects.GetByName(name);
 
         [Route("PostSubject")]
         [HttpPost]
-        public int Post(MySubject s) => 
+        public int Post(BSubject s) => 
             bl.blsubjects.Post(s);
-      
 
+
+        [Route("SubjectClos")]
+        [HttpGet]
+        public List<BSubject>? SubjectClos() =>
+            bl.blsubjects.GetSubjectClos();
 
     }
 }
