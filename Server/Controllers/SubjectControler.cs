@@ -1,6 +1,8 @@
 ﻿using Dal.Do;
 using Bo;
 using Microsoft.AspNetCore.Mvc;
+using Bl.BlApi;
+using Bl.BlImplemetiaon;
 using Bl.Bo;
 
 namespace Server.Controllers
@@ -29,6 +31,11 @@ namespace Server.Controllers
         public List<BSubject>? GetByName(string name) =>
             bl.blsubjects.GetByName(name);
 
+        [Route("GetSubjectById")]
+        [HttpGet]
+        public List<BSubject>? GetById(int code) =>
+            bl.blsubjects.GetById(code);
+
         [Route("PostSubject")]
         [HttpPost]
         public int Post(BSubject s) => 
@@ -40,5 +47,13 @@ namespace Server.Controllers
         public List<BSubject>? SubjectClos() =>
             bl.blsubjects.GetSubjectClos();
 
+        [Route("Put")]
+        [HttpPut]
+        public bool SubjectPut(BSubject subject) =>
+            bl.blsubjects.Put(subject);
+        [Route("GetNewSubject")]
+        [HttpGet]
+        public List<BSubject>? GetNewSubject() =>
+            bl.blsubjects.GetNewSubject();
     }
 }

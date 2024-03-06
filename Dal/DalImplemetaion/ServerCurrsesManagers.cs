@@ -21,6 +21,7 @@ namespace Dal.DalImplemetaion
         public bool Delete(GivenCourse t)
         {
            db.GivenCourses.Remove(t);
+           db.SaveChanges();
            return true;
         }
       
@@ -36,6 +37,7 @@ namespace Dal.DalImplemetaion
           if (my != null)
             {
                 my = t;
+                db.SaveChanges();
                 return true; 
             }           
            else return false;
@@ -44,6 +46,7 @@ namespace Dal.DalImplemetaion
         public int Post(GivenCourse t)
         {
             db.GivenCourses.Add(t);
+            db.SaveChanges();
             db.GivenCourses.ToList<GivenCourse>().ForEach(x=>count++);
             return count;
         }

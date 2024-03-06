@@ -10,6 +10,8 @@ namespace Bl.BlApi
     {
         List<T> GetAll();
         int Post(T item);  
+        bool Put(T item);  
+
     }
 
     

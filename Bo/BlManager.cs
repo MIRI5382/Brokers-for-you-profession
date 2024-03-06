@@ -1,5 +1,6 @@
 ﻿using Bl.BlApi;
 using Bl.BlImplemetiaon;
+using Bl.Bo;
 using Dal;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,6 +17,7 @@ namespace Bo
             servBCollection.AddSingleton<DalManager>();
             servBCollection.AddSingleton<ISubject, ServerceBSubject>();
             servBCollection.AddSingleton<ServerBCours>();
+            servBCollection.AddSingleton<NewSubject>();
             servBCollection.AddSingleton<ServiceBInscribed>();
             servBCollection.AddSingleton<BServGivenCours>();
             servBCollection.AddSingleton<ServiceBInscribed>();
