@@ -1,7 +1,7 @@
 ﻿using Bl.BlApi;
 using Bl.Bo;
-using Dal;
 using Dal.Do;
+using Dal;
 
 
 namespace Bl.BlImplemetiaon
@@ -12,24 +12,22 @@ namespace Bl.BlImplemetiaon
         private ServerBCours _serverBCours;
         private ServiceBInscribed _serviceBInscribed;
         private BServGivenCours _bServGivenCours;
-        private NewSubject _newSubject;
-        public ServerceBSubject(NewSubject newSubject, BServGivenCours bServGivenCours, DalManager dM, ServerBCours serverBCours, ServiceBInscribed serviceBInscribed)
+        public ServerceBSubject(BServGivenCours bServGivenCours, DalManager dM, ServerBCours serverBCours, ServiceBInscribed serviceBInscribed)
         {
             _dManager = dM;
-            _serverBCours = serverBCours;
+            _serverBCours= serverBCours;
             _serviceBInscribed = serviceBInscribed;
             _bServGivenCours = bServGivenCours;
-            _newSubject = newSubject;
         }
         private List<BInscribed>? listGiven = new();
         public MySubject ConvertToDal(BSubject bSubject)
         {
-            MySubject sub = new MySubject();
+            MySubject sub=new MySubject();
             sub.ContactMan = bSubject.ContactMan;
-            sub.Place = bSubject.Place;
+            sub.Place=bSubject.Place;
             sub.ContactManPhone = bSubject.ContactManPhone;
-            if (bSubject.CodeSubject != null)
-                sub.CodeSubject = (int)bSubject.CodeSubject;
+            if(bSubject.CodeSubject != null)
+                sub.CodeSubject =(int) bSubject.CodeSubject;
             else sub.CodeSubject = 0;
             sub.SubjectName = bSubject.SubjectName;
             sub.Categury = bSubject.Categury;
@@ -40,10 +38,10 @@ namespace Bl.BlImplemetiaon
             sub.MaxNumInscribed = bSubject.MaxNumInscribed;
             sub.NumInscribed = bSubject.NumInscribed;
             sub.LengthOf = bSubject.LengthOf;
-            if (bSubject.SCourses != null) bSubject.SCourses.ForEach(x => _serverBCours.Post(x));
-            if (bSubject.SInscribed != null) bSubject.SInscribed.ForEach(x => _serviceBInscribed.Pust(x));
-            if (bSubject.SGivenCourse != null)
-                sub.GivenCourses.Add(_bServGivenCours.ConvertToDal(bSubject.SGivenCourse));
+            if (bSubject.SCourses!=null)  bSubject.SCourses.ForEach(x=> _serverBCours.Post(x));
+            if(bSubject.SInscribed!=null) bSubject.SInscribed.ForEach(x=> _serviceBInscribed.Pust(x));
+            if (bSubject.SGivenCourse != null)  
+            sub.GivenCourses.Add(_bServGivenCours.ConvertToDal(bSubject.SGivenCourse));
             return sub;
         }
 
@@ -53,32 +51,31 @@ namespace Bl.BlImplemetiaon
             sub.ContactMan = Dsubject.ContactMan;
             sub.Place = Dsubject.Place;
             sub.ContactManPhone = Dsubject.ContactManPhone;
-            sub.CodeSubject = Dsubject.CodeSubject;
-            sub.SubjectName = Dsubject.SubjectName;
-            sub.Categury = Dsubject.Categury;
-            sub.City = Dsubject.City;
-            sub.Price = Dsubject.Price;
-            sub.SortStudents = Dsubject.SortStudents;
-            sub.Tests = Dsubject.Tests;
-            sub.MaxNumInscribed = Dsubject.MaxNumInscribed;
-            sub.NumInscribed = Dsubject.NumInscribed;
-            sub.LengthOf = Dsubject.LengthOf;
-            sub.SCourses = _serverBCours.ListToBl(Dsubject.Courses.ToList<Course>());
-            sub.SGivenCourse = _bServGivenCours.ConvertToBl(Dsubject.GivenCourses.FirstOrDefault(x => x.PhoneOfGivenCourses != null) ?? null);
+            sub.CodeSubject= Dsubject.CodeSubject;
+            sub.SubjectName= Dsubject.SubjectName;
+            sub.Categury= Dsubject.Categury;
+            sub.City= Dsubject.City;
+            sub.Price= Dsubject.Price;
+            sub.SortStudents= Dsubject.SortStudents;
+            sub.Tests= Dsubject.Tests;
+            sub.MaxNumInscribed= Dsubject.MaxNumInscribed;  
+            sub.NumInscribed=Dsubject.NumInscribed;
+            sub.LengthOf=Dsubject.LengthOf;
+            sub.SCourses = _serverBCours.ListToBl(Dsubject.Courses.ToList<Course>());         
+            sub.SGivenCourse =_bServGivenCours.ConvertToBl(Dsubject.GivenCourses.First(x=>x.PhoneOfGivenCourses!=null));
             sub.SInscribed = _serviceBInscribed.ListToBl(Dsubject.Inscribeds.ToList());
             return sub;
         }
-        public List<BSubject> ListToBl(List<MySubject> list)
-        {
-            List<BSubject> lst = new List<BSubject>();
-            list.ForEach(x => lst.Add(ConvertToBl(x)));
-            return lst;
+        public List<BSubject> ListToBl(List<MySubject> list) { 
+          List<BSubject> lst=new List<BSubject>();
+          list.ForEach(x=> lst.Add(ConvertToBl(x)));
+          return lst;
         }
-        public List<BSubject> GetAll() =>
+        public List<BSubject> GetAll()=>        
            ListToBl(_dManager.SSubject.GetAll());
 
         private List<BSubject> mapAll;
-        private int New;
+        
 
         public List<BSubject> GetBySivog(SivogSubject sivog)
         {
@@ -92,7 +89,7 @@ namespace Bl.BlImplemetiaon
             return mapAll;
         }
         private List<BSubject> GetSivog(Predicate<BSubject> sivog) =>
-            ListToBl(_dManager.SSubject.GetAll().ToList<MySubject>()).FindAll(sivog);
+            ListToBl( _dManager.SSubject.GetAll().ToList<MySubject>()).FindAll(sivog);
 
         public List<BSubject>? GetByName(string name) =>
           ListToBl(_dManager.SSubject.GetByName(name));
@@ -102,11 +99,8 @@ namespace Bl.BlImplemetiaon
 
         public int Post(BSubject subject)
         {
-            if(subject!= null)
-            { 
-              New = _dManager.SSubject.Post(ConvertToDal(subject));
-              _newSubject.ListNewSubjectByCode.Add(New);
-            }
+            New = _dManager.SSubject.Post(ConvertToDal(subject));
+            _newSubject.ListNewSubjectByCode.Add(New);
             return New;
         }
 
@@ -120,38 +114,28 @@ namespace Bl.BlImplemetiaon
             {
                 flag1 = true;
                 flag2 = true;
-                foreach (BCours cours in Bsub.SCourses)
+                foreach(BCours cours in Bsub.SCourses)
                 {
-                    if (cours.DateOfCourseEnd.Value.Month < DateTime.Today.Month)
+                    if (cours.DateOfCourseEnd.Value.Month < DateTime.Today.Month )
                     {
                         flag1 = false;
                         break;
                     }
-                    else if (cours.DateOfCourseStart.Value.Month == DateTime.Today.Month + 1)
+                   else if (cours.DateOfCourseStart.Value.Month == DateTime.Today.Month+1)
                     {
                         flag2 = false;
                     }
                 }
-                if (flag1 && !flag2)
+                if (flag1&&!flag2)
                 {
-                    lst.Add(Bsub);
+                    lst.Add(Bsub);  
                 }
-            }
+            }          
             return lst;
         }
 
-        public bool Put(BSubject item) =>
-            _dManager.SSubject.Put(ConvertToDal(item));
 
-        public List<BSubject>? GetNewSubject()
-        {
-            mapAll = ListToBl(_dManager.SSubject.GetAll());
-            if(mapAll== null|| _newSubject.ListNewSubjectByCode==null) { return null; }
-            List<BSubject> list = (List<BSubject>)(from item in mapAll
-                                       where item == from item2 in _newSubject.ListNewSubjectByCode.ToList()
-                                                     select item2
-                                       select item).ToList();
-            return list;
-        }
+
+
     }
 }
