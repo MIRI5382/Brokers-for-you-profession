@@ -20,7 +20,6 @@ namespace Dal.DalImplemetaion
             public bool Delete(Inscribed t)
             {
                 db.Inscribeds.Remove(t);
-                db.SaveChanges();
                 return true;
             }
 
@@ -36,7 +35,6 @@ namespace Dal.DalImplemetaion
                 if (my != null)
                 {
                     my = t;
-                    db.SaveChanges();
                     return true;
                 }
                 else return false;
