@@ -102,8 +102,11 @@ namespace Bl.BlImplemetiaon
 
         public int Post(BSubject subject)
         {
-            New = _dManager.SSubject.Post(ConvertToDal(subject));
-            _newSubject.ListNewSubjectByCode.Add(New);
+            if(subject!= null)
+            { 
+              New = _dManager.SSubject.Post(ConvertToDal(subject));
+              _newSubject.ListNewSubjectByCode.Add(New);
+            }
             return New;
         }
 

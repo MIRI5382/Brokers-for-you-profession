@@ -17,7 +17,7 @@ namespace Bl.Bo
         public string? Place { get; set; }
         public string? City { get; set; }
         public string? Tests { get; set; }
-        public int? LengthOf { get; set; }
+        public float? LengthOf { get; set; }
         public string? ContactMan { get; set; }
         public string? ContactManPhone { get; set; }
         public int? MaxNumInscribed { get; set; }
