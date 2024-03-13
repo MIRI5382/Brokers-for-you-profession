@@ -23,18 +23,22 @@ namespace Dal.DalImplemetaion
             return true;
         }
 
-        public List<MySubject>? GetAll() {
-            var x = db.MySubjects.ToList();
-           var l = db.MySubjects//.Include(x => x.Courses).ThenInclude(c => c.Times)
-              // .Include(x => x.Inscribeds)
-              // .Include(x => x.GivenCourses)
-             .ToList();
-            if (l.Count()==0)
-                return null;
-            return l;
-        }
+        //public List<MySubject>? GetAll() {
+        //    var x = db.MySubjects.ToList();
+        //   var l = db.MySubjects//.Include(x => x.Courses).ThenInclude(c => c.Times)
+        //      // .Include(x => x.Inscribeds)
+        //      // .Include(x => x.GivenCourses)
+        //     .ToList();
+        //    if (l.Count()==0)
+        //        return null;
+        //    return l;
+        //}
+        public List<MySubject>? GetAll()=> 
+            db.MySubjects.ToList< MySubject>();
 
-        public List<MySubject>? GetByName(string NameSubject) =>
+       
+
+            public List<MySubject>? GetByName(string NameSubject) =>
                 db.MySubjects.ToList<MySubject>().FindAll(x => x.SubjectName == NameSubject);
 
         public List<MySubject>? GetById(int CodeSubject) =>
