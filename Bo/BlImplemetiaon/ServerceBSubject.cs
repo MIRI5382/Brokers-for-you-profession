@@ -12,12 +12,14 @@ namespace Bl.BlImplemetiaon
         private ServerBCours _serverBCours;
         private ServiceBInscribed _serviceBInscribed;
         private BServGivenCours _bServGivenCours;
-        public ServerceBSubject(BServGivenCours bServGivenCours, DalManager dM, ServerBCours serverBCours, ServiceBInscribed serviceBInscribed)
+        private NewSubject _new;
+        public ServerceBSubject(BServGivenCours bServGivenCours, DalManager dM, ServerBCours serverBCours, ServiceBInscribed serviceBInscribed,NewSubject news)
         {
             _dManager = dM;
             _serverBCours= serverBCours;
             _serviceBInscribed = serviceBInscribed;
             _bServGivenCours = bServGivenCours;
+            _new=news;
         }
         private List<BInscribed>? listGiven = new();
         public MySubject ConvertToDal(BSubject bSubject)
@@ -94,17 +96,12 @@ namespace Bl.BlImplemetiaon
         public List<BSubject>? GetByName(string name) =>
           ListToBl(_dManager.SSubject.GetByName(name));
 
-        public List<BSubject>? GetById(int code) =>
-          ListToBl(_dManager.SSubject.GetById(code));
-
         public int Post(BSubject subject)
         {
-            New = _dManager.SSubject.Post(ConvertToDal(subject));
-            _newSubject.ListNewSubjectByCode.Add(New);
-            return New;
-        }
-
-
+            int code=_dManager.SSubject.Post(ConvertToDal(subject));
+            _new.ListNewSubjectByCode.Add(code);
+            return code;
+        }       
         public List<BSubject>? GetSubjectClos()
         {
             List<BSubject> lst = new();
@@ -133,9 +130,20 @@ namespace Bl.BlImplemetiaon
             }          
             return lst;
         }
+        public List<BSubject>? GetNewSubject()
+        {
+            List<BSubject> l=GetAll();
+            List<BSubject> f=new List<BSubject>();                        
+            _new.ListNewSubjectByCode.ForEach(n => l.ForEach(Bsub =>
+            {
+                if (n == Bsub.CodeSubject)
+                    f.Add(Bsub);
+            }
+            ));
+            return f;
+        }
 
 
 
-
-    }
+        }
 }

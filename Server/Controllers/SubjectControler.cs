@@ -1,4 +1,4 @@
-﻿using Dal.Do;
+﻿
 using Bo;
 using Microsoft.AspNetCore.Mvc;
 using Bl.Bo;
@@ -39,6 +39,11 @@ namespace Server.Controllers
         [HttpGet]
         public List<BSubject>? SubjectClos() =>
             bl.blsubjects.GetSubjectClos();
+
+        [Route("NewSubject")]
+        [HttpGet]
+        public List<BSubject>? NewSubject() =>
+            bl.blsubjects.GetNewSubject();
 
     }
 }

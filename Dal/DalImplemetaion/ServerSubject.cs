@@ -2,6 +2,11 @@
 using Dal.DalApi;
 using Dal.Do;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Dal.DalImplemetaion
 {
@@ -20,16 +25,16 @@ namespace Dal.DalImplemetaion
             db.MySubjects.Remove(t);
             db.SaveChanges();
             return true;
-        }
-
-        public List<MySubject>? GetAll() =>
-            db.MySubjects.Include(x => x.Courses).ThenInclude(c => c.Times)
-             .Include(x => x.Inscribeds)
-             .Include(x => x.GivenCourses)
-           .ToList<MySubject>();
+        }    
+       
+            public List<MySubject>? GetAll() =>
+                db.MySubjects.Include(x=>x.Courses).ThenInclude(c=>c.Times)
+                 .Include(x => x.Inscribeds)
+                 .Include(x => x.GivenCourses)
+               .ToList<MySubject>();
 
         public List<MySubject>? GetByName(string NameSubject) =>
-                db.MySubjects.ToList<MySubject>().FindAll(x => x.SubjectName == NameSubject);
+                db.MySubjects.ToList<MySubject>().FindAll(x=>x.SubjectName == NameSubject);
 
  
 
@@ -51,7 +56,8 @@ namespace Dal.DalImplemetaion
             }
             else return false;
         }
-    }
+       
+        }
 }
 
 

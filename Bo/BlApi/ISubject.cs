@@ -13,5 +13,6 @@ namespace Bl.BlApi
         public List<BSubject>? GetByName(string NameSubject);
         public List<BSubject> GetBySivog(SivogSubject sivog);
         public List<BSubject>? GetSubjectClos();
+        public List<BSubject>? GetNewSubject();
     }
 }

@@ -8,6 +8,7 @@ namespace Bo
     public class BlManager
     {
         public ISubject blsubjects { get;  }
+        public ServerBCours blcours { get; }
         //public ServiceBInscribed serviceBInscribed { get; set; }
         public BlManager() 
         {
@@ -25,7 +26,11 @@ namespace Bo
             var servprovaider = servBCollection.BuildServiceProvider();
 
             //נגשים לאוביקט שהפרווידר מנהל
+            try { 
             blsubjects = servprovaider.GetRequiredService<ISubject>();
+            blcours= servprovaider.GetRequiredService<ServerBCours>();
+            }
+            catch (Exception ex) { }
             //serviceBInscribed= servprovaider.GetRequiredService<ServiceBInscribed>();
 
         }

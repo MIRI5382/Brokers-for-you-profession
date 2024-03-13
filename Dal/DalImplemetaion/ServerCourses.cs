@@ -9,8 +9,13 @@ namespace Dal.DalImplemetaion
     {
         private dbcontext db;
         private int count=0;
+        private ServerSubject _subjectSetv ;
 
-        public ServerCourses(dbcontext db) { this.db = db; }
+        public ServerCourses(dbcontext db, ServerSubject subject) 
+        { 
+            this.db = db;
+            this._subjectSetv = subject;
+        }
         public bool Delete(Course t)
         {
             db.Courses.Remove(t);
@@ -39,8 +44,10 @@ namespace Dal.DalImplemetaion
         public int Post(Course t)
         {
             db.Courses.Add(t);
-            db.Courses.ToList<Course>().ForEach(x => count++);
-            return count;
+            Course? c = db.Courses.ToList<Course>().FirstOrDefault(x => x==t);
+            MySubject? sub= _subjectSetv?.GetAll()?.FirstOrDefault(x=>x.CodeSubject==t.CodeSubject);
+            sub?.Courses.Add(t);
+            return c.CodeCourse;
         }
     }
 }
