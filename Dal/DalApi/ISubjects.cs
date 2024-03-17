@@ -11,7 +11,6 @@ namespace Dal.DalApi
     public interface ISubjects:ICrud<MySubject>
     {
         public List<MySubject>? GetByName(string  NameSubject);
-        //public List<MySubject> GetBySivog(MySubject sivog);
 
     }
 }

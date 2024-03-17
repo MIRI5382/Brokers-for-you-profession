@@ -8,30 +8,32 @@ namespace Bo
     public class BlManager
     {
         public ISubject blsubjects { get;  }
-        public ServerBCours blcours { get; }
-        //public ServiceBInscribed serviceBInscribed { get; set; }
+        public ICours blcours { get;  }
+        public IGivensubject blgivensubject { get; }
+        public ITime bltime { get; }
+        public IBInscribed blinscribed { get; }
         public BlManager() 
         {
             //ריכוז של כל השרותים שצריך לרשימה אחת
             ServiceCollection servBCollection = new ServiceCollection();
             servBCollection.AddSingleton<DalManager>();
             servBCollection.AddSingleton<ISubject, ServerceBSubject>();
-            servBCollection.AddSingleton<ServerBCours>();
-            servBCollection.AddSingleton<ServiceBInscribed>();
-            servBCollection.AddSingleton<BServGivenCours>();
-            servBCollection.AddSingleton<ServiceBInscribed>();
-            servBCollection.AddSingleton<SevicTime>();
+            servBCollection.AddSingleton<ICours,ServerBCours>();
+            servBCollection.AddSingleton<IBInscribed, ServiceBInscribed>();
+            servBCollection.AddSingleton<IGivensubject,BServGivenCours>();
+            servBCollection.AddSingleton<ITime, SevicTime>();
 
             //בנית מנהל של סרויסים
             var servprovaider = servBCollection.BuildServiceProvider();
 
             //נגשים לאוביקט שהפרווידר מנהל
-            try { 
+            
             blsubjects = servprovaider.GetRequiredService<ISubject>();
-            blcours= servprovaider.GetRequiredService<ServerBCours>();
-            }
-            catch (Exception ex) { }
-            //serviceBInscribed= servprovaider.GetRequiredService<ServiceBInscribed>();
+            blcours= servprovaider.GetRequiredService<ICours>();
+            blgivensubject = servprovaider.GetRequiredService<IGivensubject>();
+            bltime=servprovaider.GetRequiredService<ITime>();
+            blinscribed=servprovaider.GetRequiredService<IBInscribed>();
+            
 
         }
 

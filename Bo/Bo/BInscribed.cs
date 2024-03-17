@@ -17,5 +17,6 @@ namespace Bl.Bo
         public string? PhoneInscribed { get; set; }
         public string? Tests { get; set; }
 
+
     }
 }

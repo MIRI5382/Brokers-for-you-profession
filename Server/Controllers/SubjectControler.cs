@@ -2,6 +2,7 @@
 using Bo;
 using Microsoft.AspNetCore.Mvc;
 using Bl.Bo;
+using Bl.BlApi;
 
 namespace Server.Controllers
 {
@@ -9,41 +10,46 @@ namespace Server.Controllers
     [ApiController]
     public class SubjectControler: ControllerBase
     {
-        public BlManager bl;
+        private ISubject bl;
         public SubjectControler(BlManager bl) 
         {
-            this.bl = bl;
+            this.bl = bl.blsubjects;
         }
         [Route("GetAllSubject")]
         [HttpGet]
-        public List<BSubject> GetAllSubject() =>      
-            bl.blsubjects.GetAll();
+        public List<BSubject>? GetAllSubject() =>      
+            bl.GetAll();
 
         [Route("GetBySivog")]
         [HttpPost]
         public List<BSubject> GetSubjectBySivog(SivogSubject s) => 
-            bl.blsubjects.GetBySivog(s);
+            bl.GetBySivog(s);
 
         [Route("GetSubjectByName")]
         [HttpGet]
         public List<BSubject>? GetByName(string name) =>
-            bl.blsubjects.GetByName(name);
+            bl.GetByName(name);
 
         [Route("PostSubject")]
         [HttpPost]
         public int Post(BSubject s) => 
-            bl.blsubjects.Post(s);
+            bl.Post(s);
 
 
         [Route("SubjectClos")]
         [HttpGet]
         public List<BSubject>? SubjectClos() =>
-            bl.blsubjects.GetSubjectClos();
+            bl.GetSubjectClos();
 
         [Route("NewSubject")]
         [HttpGet]
         public List<BSubject>? NewSubject() =>
-            bl.blsubjects.GetNewSubject();
+            bl.GetNewSubject();
+
+        [Route("put")]
+        [HttpPut]
+        public bool Put(BSubject b) =>
+            bl.Put(b);
 
     }
 }

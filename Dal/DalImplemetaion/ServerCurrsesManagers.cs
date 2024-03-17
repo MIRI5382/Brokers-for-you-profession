@@ -1,51 +1,53 @@
 ﻿
 using Dal.DalApi;
 using Dal.Do;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dal.DalImplemetaion
 {
     public class ServerCurrsesManagers : IGivenCourses
     {
         private dbcontext db;
-        private int count=0;
+        private int count = 0;
         public ServerCurrsesManagers(dbcontext db)
         {
             this.db = db;
         }
         public bool Delete(GivenCourse t)
         {
-           db.GivenCourses.Remove(t);
-           return true;
+            db.GivenCourses.Remove(t);
+            return true;
         }
-      
-        public List<GivenCourse>? GetAll()=>
-            db.GivenCourses.ToList< GivenCourse>();       
 
-        public GivenCourse? GetById(string t)=>
-            db.GivenCourses.ToList<GivenCourse>().Find(x=>x.TzGivenCourses==t);
+        public List<GivenCourse>? GetAll() =>
+            db.GivenCourses.ToList<GivenCourse>();
+
+        public GivenCourse? GetById(string t) =>
+            db.GivenCourses.ToList<GivenCourse>().Find(x => x.TzGivenCourses == t);
 
         public bool Put(GivenCourse t)
         {
-          GivenCourse? my = db.GivenCourses.ToList<GivenCourse>().Find(x => x.TzGivenCourses == t.TzGivenCourses);
-          if (my != null)
+            GivenCourse? my = db.GivenCourses.ToList<GivenCourse>().Find(x => x.TzGivenCourses == t.TzGivenCourses);
+            if (my != null || t != null)
             {
-                my = t;
-                return true; 
-            }           
-           else return false;
+                if (t.NameOfGivenCourses != null)
+                    my.NameOfGivenCourses = t.NameOfGivenCourses;
+                if (t.PhoneOfGivenCourses != null)
+                    my.PhoneOfGivenCourses = t.PhoneOfGivenCourses;
+                if (t.CodeSubject != null)
+                    my.CodeSubject = t.CodeSubject;
+                db.SaveChanges();
+                return true;
+            }
+            else return false;
         }
 
-        public int Post(GivenCourse t)
+        public int Post(GivenCourse g)
         {
-            db.GivenCourses.Add(t);
-            db.GivenCourses.ToList<GivenCourse>().ForEach(x=>count++);
-            return count;
+            db.GivenCourses.Add(g);
+            MySubject? mysub = db.MySubjects.FirstOrDefault(x => x.CodeSubject == g.CodeSubject);
+            mysub?.GivenCourses.Add(g);
+            db.SaveChanges();
+            return 1;
         }
     }
 }

@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Dal.DalApi
 {
-    internal interface IGivenCourses: ICrud<GivenCourse>
+    public interface IGivenCourses: ICrud<GivenCourse>
     {
         public GivenCourse? GetById(string tz);
+       
     }
 }

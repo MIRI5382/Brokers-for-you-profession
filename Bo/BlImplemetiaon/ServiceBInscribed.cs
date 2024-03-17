@@ -1,17 +1,22 @@
-﻿using Bl.Bo;
+﻿using Bl.BlApi;
+using Bl.Bo;
 using Dal;
+using Dal.DalApi;
 using Dal.Do;
 
 
 namespace Bl.BlImplemetiaon
-{    
-    public class ServiceBInscribed
+{
+    public class ServiceBInscribed : IBInscribed
     {
         private DalManager _dm;
+        private IInscribed _dInscribed;
 
-        public ServiceBInscribed(DalManager dm)
+
+        public ServiceBInscribed(DalManager dm, IInscribed dInscribed)
         {
-            _dm =dm ;
+            _dm = dm;
+            _dInscribed = dInscribed;
         }
         public Inscribed ConvertToDal(BInscribed bInscribed)
         {
@@ -37,14 +42,22 @@ namespace Bl.BlImplemetiaon
             inscribed.Tests = bInscribed.Tests;
             return inscribed;
         }
-        public List<BInscribed> ListToBl(List<Inscribed> list) 
+        public List<BInscribed> ListToBl(List<Inscribed> list)
         {
             List<BInscribed> ls = new();
-            list.ForEach(x => ls.Add( ConvertToBl(x)));
+            list.ForEach(x => ls.Add(ConvertToBl(x)));
             return ls;
         }
-        public int Pust(BInscribed i)=>   
-            _dm.SInscribed.Post(ConvertToDal(i));
+        public int Post(BInscribed i) =>
+            _dInscribed.Post(ConvertToDal(i));
+
+        public List<BInscribed>? GetAll()=>
+            ListToBl(_dInscribed.GetAll());
         
+
+        public bool Put(BInscribed item) =>
+        _dInscribed.Put(ConvertToDal(item));
+
+
     }
 }

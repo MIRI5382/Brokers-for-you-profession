@@ -1,16 +1,19 @@
-﻿using Dal.Do;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bl.BlApi;
+using Dal;
+using Dal.DalApi;
+using Dal.Do;
 
 namespace Bl.BlImplemetiaon
 {
-    public class SevicTime
+    public class SevicTime : ITime
     {
+        private DalManager _dManager;
+        private IdTime _idtime;
 
-        public SevicTime() { }
+        public SevicTime(DalManager d)
+        {
+            _dManager = d;
+        }
         public BlTime ConvertToBl(Time time)
         {
             BlTime t = new BlTime();
@@ -49,5 +52,17 @@ namespace Bl.BlImplemetiaon
             return lst;
         }
 
+        public List<BlTime>? GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Post(BlTime t) =>
+             _idtime.Post(ConvertToDal(t));
+
+        public bool Put(BlTime item)=>      
+            _idtime.Put(ConvertToDal(item));
+
+        
     }
 }

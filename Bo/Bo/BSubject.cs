@@ -17,7 +17,7 @@ namespace Bl.Bo
         public string? Place { get; set; }
         public string? City { get; set; }
         public string? Tests { get; set; }
-        public float? LengthOf { get; set; }
+        public double? LengthOf { get; set; }
         public string? ContactMan { get; set; }
         public string? ContactManPhone { get; set; }
         public int? MaxNumInscribed { get; set; }
@@ -25,7 +25,7 @@ namespace Bl.Bo
         public string? Categury { get; set; }
         public List<BCours>? SCourses { get;  set; }=new List<BCours>();
         public List<BInscribed>? SInscribed { get;  set; }=new List<BInscribed>();
-        public BlGivenCourse? SGivenCourse { get;  set; }
+        public BlGivenCourse? SGivenCourse { get;  set; }=new BlGivenCourse();
 
     }
 }

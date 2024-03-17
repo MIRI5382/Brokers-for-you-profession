@@ -8,8 +8,9 @@ namespace Bl.BlApi
 {
     public interface ICrod<T>
     {
-        List<T> GetAll();
-        int Post(T item);  
+        List<T>? GetAll();
+        int Post(T item);
+        bool Put(T item);
     }
 
     

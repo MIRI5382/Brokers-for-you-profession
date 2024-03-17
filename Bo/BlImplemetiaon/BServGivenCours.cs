@@ -1,16 +1,20 @@
-﻿using Dal.Do;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bl.BlApi;
+using Bl.Bo;
+using Dal.Do;
+using Dal;
+using Dal.DalApi;
 
 namespace Bl.BlImplemetiaon
 {
-    public class BServGivenCours
+    public class BServGivenCours: IGivensubject
     {
-
-        public BServGivenCours() { }
+        private DalManager _dmenager;
+        private IGivenCourses _dGivenCourses;
+        public BServGivenCours(DalManager d, IGivenCourses i) 
+        { 
+            _dmenager = d;
+            _dGivenCourses = i;
+        }
         public BlGivenCourse ConvertToBl(GivenCourse givenCourse)
         {
             if (givenCourse == null) return null;
@@ -30,5 +34,22 @@ namespace Bl.BlImplemetiaon
             bgiven.TzGivenCourses = givenCourse.TzGivenCourses;
             return bgiven;
         }
+        public List<BlGivenCourse> ListToBl(List<GivenCourse> list)
+        {
+            List<BlGivenCourse> lst = new List<BlGivenCourse>();
+            list.ForEach(x => lst.Add(ConvertToBl(x)));
+            return lst;
+        }
+
+        public List<BlGivenCourse>? GetAll()=>
+             ListToBl(_dGivenCourses.GetAll());
+        
+        public int Post(BlGivenCourse t)=>              
+            _dGivenCourses.Post(ConvertToDal(t));
+
+        public bool Put(BlGivenCourse item)=>
+            _dGivenCourses.Put(ConvertToDal(item)); 
+             
+        
     }
 }
