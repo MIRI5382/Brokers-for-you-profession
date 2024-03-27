@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bl.BlApi
 {
-    public interface ICrod<T>
+    public interface IbCrod<T>
     {
         List<T>? GetAll();
         int Post(T item);

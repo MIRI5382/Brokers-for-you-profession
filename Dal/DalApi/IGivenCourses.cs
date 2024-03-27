@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace Dal.DalApi
 {
-    public interface IGivenCourses: ICrud<GivenCourse>
+    public interface IdGivenCourses: IdCrud<GivenCourse>
     {
         public GivenCourse? GetById(string tz);
-       
+        bool Delete(ICollection<GivenCourse> g);
+
     }
 }

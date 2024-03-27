@@ -7,10 +7,10 @@ namespace Dal
 {
     public class DalManager
     {
-        public ISubjects SSubject { get; set; }
-        public ICourses SCourses { get; set; }
-        public IGivenCourses SCurrsesManagers { get; set; }
-        public IInscribed SInscribed { get; }
+        public IdSubjects SSubject { get; set; }
+        public IdCourses SCourses { get; set; }
+        public IdGivenCourses SCurrsesManagers { get; set; }
+        public IdInscribed SInscribed { get; }
         public IdTime SItime { get; }
 
         public DalManager()
@@ -18,18 +18,18 @@ namespace Dal
             //ריכוז של כל השרותים שצריך לרשימה אחת
             ServiceCollection servCollect =new ServiceCollection();
             servCollect.AddSingleton<dbcontext>();
-            servCollect.AddSingleton<IInscribed, InscribedServer>();
-            servCollect.AddSingleton<ICourses, ServerCourses>();
-            servCollect.AddSingleton<IGivenCourses, ServerCurrsesManagers>();
-            servCollect.AddSingleton<ISubjects, ServerSubject>();
+            servCollect.AddSingleton<IdInscribed, InscribedServer>();
+            servCollect.AddSingleton<IdCourses, ServerCourses>();
+            servCollect.AddSingleton<IdGivenCourses, ServerCurrsesManagers>();
+            servCollect.AddSingleton<IdSubjects, ServerSubject>();
             servCollect.AddSingleton<IdTime, ServerTime>();
             //בנית מנהל של סרויסים
             var serviceprovider= servCollect.BuildServiceProvider();
             //נגשים לאוביקט שהפרווידר מנהל
-            SSubject = serviceprovider.GetRequiredService<ISubjects>();
-            SCourses = serviceprovider.GetRequiredService<ICourses>();
-            SCurrsesManagers = serviceprovider.GetRequiredService<IGivenCourses>();
-            SInscribed = serviceprovider.GetRequiredService<IInscribed>();
+            SSubject = serviceprovider.GetRequiredService<IdSubjects>();
+            SCourses = serviceprovider.GetRequiredService<IdCourses>();
+            SCurrsesManagers = serviceprovider.GetRequiredService<IdGivenCourses>();
+            SInscribed = serviceprovider.GetRequiredService<IdInscribed>();
             SItime = serviceprovider.GetRequiredService<IdTime>();
 
         }

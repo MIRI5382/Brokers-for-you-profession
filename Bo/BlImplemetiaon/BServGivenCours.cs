@@ -6,14 +6,14 @@ using Dal.DalApi;
 
 namespace Bl.BlImplemetiaon
 {
-    public class BServGivenCours: IGivensubject
+    public class BServGivenCours: IbGivensubject
     {
         private DalManager _dmenager;
-        private IGivenCourses _dGivenCourses;
-        public BServGivenCours(DalManager d, IGivenCourses i) 
+        private IdGivenCourses _dGivenCourses;
+        public BServGivenCours(DalManager d) 
         { 
             _dmenager = d;
-            _dGivenCourses = i;
+            _dGivenCourses = d.SCurrsesManagers;
         }
         public BlGivenCourse ConvertToBl(GivenCourse givenCourse)
         {

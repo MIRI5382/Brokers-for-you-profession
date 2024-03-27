@@ -5,7 +5,7 @@ using Dal.Do;
 
 namespace Bl.BlImplemetiaon
 {
-    public class SevicTime : ITime
+    public class SevicTime : IbTime
     {
         private DalManager _dManager;
         private IdTime _idtime;
@@ -13,6 +13,7 @@ namespace Bl.BlImplemetiaon
         public SevicTime(DalManager d)
         {
             _dManager = d;
+            _idtime = d.SItime;
         }
         public BlTime ConvertToBl(Time time)
         {

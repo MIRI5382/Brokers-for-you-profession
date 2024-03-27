@@ -25,7 +25,7 @@ namespace Bl.Bo
         public string? Categury { get; set; }
         public List<BCours>? SCourses { get;  set; }=new List<BCours>();
         public List<BInscribed>? SInscribed { get;  set; }=new List<BInscribed>();
-        public BlGivenCourse? SGivenCourse { get;  set; }=new BlGivenCourse();
+        public List<BlGivenCourse>? SGivenCourse { get;  set; }=new List<BlGivenCourse>();
 
     }
 }

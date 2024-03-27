@@ -1,10 +1,11 @@
 ﻿
 using Dal.DalApi;
 using Dal.Do;
+using System.Collections.ObjectModel;
 
 namespace Dal.DalImplemetaion
 {
-    public class ServerCurrsesManagers : IGivenCourses
+    public class ServerCurrsesManagers : IdGivenCourses
     {
         private dbcontext db;
         private int count = 0;
@@ -12,9 +13,13 @@ namespace Dal.DalImplemetaion
         {
             this.db = db;
         }
-        public bool Delete(GivenCourse t)
+        public bool Delete(ICollection<GivenCourse> g)
         {
-            db.GivenCourses.Remove(t);
+            foreach (GivenCourse g2 in g)
+            {
+                db.GivenCourses.Remove(g2);
+            }
+            db.SaveChanges();         
             return true;
         }
 
@@ -44,8 +49,8 @@ namespace Dal.DalImplemetaion
         public int Post(GivenCourse g)
         {
             db.GivenCourses.Add(g);
-            MySubject? mysub = db.MySubjects.FirstOrDefault(x => x.CodeSubject == g.CodeSubject);
-            mysub?.GivenCourses.Add(g);
+            //MySubject? mysub = db.MySubjects.FirstOrDefault(x => x.CodeSubject == g.CodeSubject);
+            //mysub?.GivenCourses.Add(g);
             db.SaveChanges();
             return 1;
         }

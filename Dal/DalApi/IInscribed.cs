@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Dal.DalApi
 {
-    public interface IInscribed:ICrud<Inscribed>
+    public interface IdInscribed:IdCrud<Inscribed>
     {
         public Inscribed? GetById(string tz);
+        bool Delete(ICollection<Inscribed> i);
     }
 }

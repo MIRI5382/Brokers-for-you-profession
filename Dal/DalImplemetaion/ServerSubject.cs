@@ -5,24 +5,27 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dal.DalImplemetaion
 {
-    public class ServerSubject : ISubjects
+    public class ServerSubject : IdSubjects
     {
         private dbcontext db;
         private int count = 0;
-        private InscribedServer _InscribedServer;
-        private ServerCourses _ServerCourses;
-        private ServerCurrsesManagers _ServerCurrsesManagers;
+        private IdInscribed _Inscribed;
+        private IdCourses _courses;
+        private IdGivenCourses _givencors;
 
-        public ServerSubject(dbcontext db,InscribedServer InscribedServer,ServerCourses ServerCourses, ServerCurrsesManagers ServerCurrsesManagers)
+        public ServerSubject(dbcontext db, IdInscribed Inscribed, IdCourses courses, IdGivenCourses currsesManagers)
         {
             this.db = db;
-            _InscribedServer= InscribedServer;
-            _ServerCourses= ServerCourses;
-            _ServerCurrsesManagers= ServerCurrsesManagers;
+            _Inscribed= Inscribed;
+            _courses= courses;
+            _givencors = currsesManagers;
         }
         public bool Delete(MySubject t)
         {
+            if(t.Inscribeds.Count > 0) { return false; } 
             db.MySubjects.Remove(t);
+            if(t.Courses.Count > 0) { return _courses.Delete(t.Courses) ; }
+            if (t.GivenCourses.Count > 0) { return _givencors.Delete(t.GivenCourses); }
             db.SaveChanges();
             return true;
         }
@@ -31,7 +34,7 @@ namespace Dal.DalImplemetaion
             db.MySubjects.Include(x => x.Courses).ThenInclude(c => c.Times)
              .Include(x => x.Inscribeds)
              .Include(x => x.GivenCourses)
-           .ToList();
+           .ToList<MySubject>();
 
         public List<MySubject>? GetByName(string NameSubject) =>
                 db.MySubjects.ToList<MySubject>().FindAll(x => x.SubjectName == NameSubject);
@@ -78,11 +81,11 @@ namespace Dal.DalImplemetaion
                 if (t.GivenCourses != null)
                     my.GivenCourses = t.GivenCourses;
                 if (t.Inscribeds != null)
-                    _InscribedServer.Put(((Inscribed)t.Inscribeds));
+                    _Inscribed.Put(((Inscribed)t.Inscribeds));
                 if (t.Courses != null)
-                    _ServerCourses.Put(((Course)t.Courses));
+                    _courses.Put(((Course)t.Courses));
                 if (t.GivenCourses != null)
-                    _ServerCurrsesManagers.Put(((GivenCourse)t.GivenCourses));
+                    _givencors.Put(((GivenCourse)t.GivenCourses));
                 db.SaveChanges();
                 return true;
             }

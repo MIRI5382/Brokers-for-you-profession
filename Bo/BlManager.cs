@@ -1,37 +1,40 @@
 ﻿using Bl.BlApi;
 using Bl.BlImplemetiaon;
 using Dal;
+using Dal.DalApi;
+using Dal.DalImplemetaion;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Bo
 {
     public class BlManager
     {
-        public ISubject blsubjects { get;  }
-        public ICours blcours { get;  }
-        public IGivensubject blgivensubject { get; }
-        public ITime bltime { get; }
+        public IbSubject blsubjects { get;  }
+        public IbCours blcours { get;  }
+        public IbGivensubject blgivensubject { get; }
+        public IbTime bltime { get; }
         public IBInscribed blinscribed { get; }
         public BlManager() 
         {
             //ריכוז של כל השרותים שצריך לרשימה אחת
             ServiceCollection servBCollection = new ServiceCollection();
             servBCollection.AddSingleton<DalManager>();
-            servBCollection.AddSingleton<ISubject, ServerceBSubject>();
-            servBCollection.AddSingleton<ICours,ServerBCours>();
+            servBCollection.AddSingleton<IbSubject, ServerceBSubject>();
+            servBCollection.AddSingleton<IbCours,ServerBCours>();
             servBCollection.AddSingleton<IBInscribed, ServiceBInscribed>();
-            servBCollection.AddSingleton<IGivensubject,BServGivenCours>();
-            servBCollection.AddSingleton<ITime, SevicTime>();
+            servBCollection.AddSingleton<IbGivensubject,BServGivenCours>();
+            servBCollection.AddSingleton<IbTime, SevicTime>();
+            
 
             //בנית מנהל של סרויסים
             var servprovaider = servBCollection.BuildServiceProvider();
 
             //נגשים לאוביקט שהפרווידר מנהל
             
-            blsubjects = servprovaider.GetRequiredService<ISubject>();
-            blcours= servprovaider.GetRequiredService<ICours>();
-            blgivensubject = servprovaider.GetRequiredService<IGivensubject>();
-            bltime=servprovaider.GetRequiredService<ITime>();
+            blsubjects = servprovaider.GetRequiredService<IbSubject>();
+            blcours= servprovaider.GetRequiredService<IbCours>();
+            blgivensubject = servprovaider.GetRequiredService<IbGivensubject>();
+            bltime=servprovaider.GetRequiredService<IbTime>();
             blinscribed=servprovaider.GetRequiredService<IBInscribed>();
             
 

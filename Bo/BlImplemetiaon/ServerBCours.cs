@@ -6,16 +6,16 @@ using Dal.Do;
 
 namespace Bl.BlImplemetiaon
 {
-    public class ServerBCours : ICours
+    public class ServerBCours : IbCours
     {
-        private DalManager _dManager;
-        private ICourses _dcors;
-        private BlApi.ITime _iTime;
+       // private DalManager _dManager;
+        private IdCourses _dcors;
+        private IbTime _iTime;
 
-        public ServerBCours(DalManager dM, ICourses dcors, ITime iTime)
+        public ServerBCours(DalManager dM, IbTime iTime)
         {
-            _dManager = dM;
-            _dcors = dcors;
+           
+            _dcors = dM.SCourses;
             _iTime = iTime; 
         }
         public BCours ConvertToBl(Course c)

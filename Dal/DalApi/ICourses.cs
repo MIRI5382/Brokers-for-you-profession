@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace Dal.DalApi
 {
-    public interface ICourses:ICrud<Course>
+    public interface IdCourses:IdCrud<Course>
     {
+        bool Delete(ICollection<Course> courses);
         public Course? GetById(int CodeCourse);
         
 

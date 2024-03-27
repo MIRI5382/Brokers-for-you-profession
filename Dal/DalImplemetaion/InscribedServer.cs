@@ -4,7 +4,7 @@ using Dal.Do;
 
 namespace Dal.DalImplemetaion
 {
-    public class InscribedServer : IInscribed
+    public class InscribedServer : IdInscribed
     {
         private dbcontext db;
         private int count = 0;
@@ -12,9 +12,13 @@ namespace Dal.DalImplemetaion
         {
             this.db = db;
         }
-        public bool Delete(Inscribed t)
+        public bool Delete(ICollection<Inscribed> i)
         {
-            db.Inscribeds.Remove(t);
+            foreach (Inscribed i2 in i)
+            {
+                db.Inscribeds.Remove(i2);
+            }
+            db.SaveChanges();
             return true;
         }
 
@@ -27,20 +31,14 @@ namespace Dal.DalImplemetaion
         public bool Put(Inscribed t)
         {
             Inscribed? my = db.Inscribeds.ToList<Inscribed>().Find(x => x.TzInscribed == t.TzInscribed);
-            if (my != null||t!=null)
+            if (my != null || t != null)
             {
-                if (my.InscribedName != null)
-                    my.InscribedName = t.InscribedName;
-                if (my.Age != null)
-                    my.Age = t.Age;
-                if (my.SortInscribed != null)
-                    my.SortInscribed = t.SortInscribed;
-                if (my.InscribedSubjectCode != null)
-                    my.InscribedSubjectCode = t.InscribedSubjectCode;
-                if (my.PhoneInscribed != null)
-                    my.PhoneInscribed = t.PhoneInscribed;
-                if (my.Tests != null)
-                    my.Tests = t.Tests;
+                my.InscribedName = t.InscribedName;
+                my.Age = t.Age;
+                my.SortInscribed = t.SortInscribed;
+                my.InscribedSubjectCode = t.InscribedSubjectCode;
+                my.PhoneInscribed = t.PhoneInscribed;
+                my.Tests = t.Tests;
                 db.SaveChanges();
                 return true;
             }

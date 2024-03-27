@@ -7,21 +7,21 @@ using Dal.Do;
 
 namespace Bl.BlImplemetiaon
 {
-    public class ServerceBSubject : ISubject
+    public class ServerceBSubject : IbSubject
     {
         private DalManager _dManager;
-        private ISubjects _dsobject;
-        private ICours _serverBCours;
+        private IdSubjects _dsobject;
+        private IbCours _serverBCours;
         private IBInscribed _inscribed;
-        private IGivensubject _biGivenCours;
+        private IbGivensubject _biGivenCours;
         private NewSubject _new;
-        public ServerceBSubject(IGivensubject bServGivenCours, DalManager dM, ICours serverBCours, IBInscribed inscribed, ISubjects dsobject)
+        public ServerceBSubject(IbGivensubject bServGivenCours, DalManager dM, IbCours serverBCours, IBInscribed inscribed)
         {
             _dManager = dM;
             _serverBCours = serverBCours;
             _inscribed = inscribed;
             _biGivenCours = bServGivenCours;
-            _dsobject = dsobject;
+            _dsobject = dM.SSubject;
         }
         private List<BInscribed>? listGiven = new();
         public MySubject ConvertToDal(BSubject bSubject)
@@ -45,7 +45,8 @@ namespace Bl.BlImplemetiaon
             if (bSubject.SCourses != null) bSubject.SCourses.ForEach(x => _serverBCours.Post(x));
             if (bSubject.SInscribed != null) bSubject.SInscribed.ForEach(x => _inscribed.Post(x));
             if (bSubject.SGivenCourse != null)
-                sub.GivenCourses.Add(((BServGivenCours)_biGivenCours).ConvertToDal(bSubject.SGivenCourse));
+                bSubject.SGivenCourse.ForEach(x => _biGivenCours.Post(x));
+            //sub.GivenCourses.Add(((BServGivenCours)_biGivenCours).ConvertToDal(bSubject.SGivenCourse));
             return sub;
         }
 
@@ -66,7 +67,8 @@ namespace Bl.BlImplemetiaon
             sub.NumInscribed = Dsubject.NumInscribed;
             sub.LengthOf = Dsubject.LengthOf;
             sub.SCourses = ((ServerBCours)_serverBCours).ListToBl(Dsubject.Courses.ToList<Course>());
-            sub.SGivenCourse = ((BServGivenCours)_biGivenCours).ConvertToBl(Dsubject.GivenCourses.First(x => x.PhoneOfGivenCourses != null));
+            //sub.SGivenCourse = ((BServGivenCours)_biGivenCours).ConvertToBl(Dsubject.GivenCourses.First(x => x.PhoneOfGivenCourses != null));
+            sub.SGivenCourse = ((BServGivenCours)_biGivenCours).ListToBl(Dsubject.GivenCourses.ToList());
             sub.SInscribed = ((ServiceBInscribed)_inscribed).ListToBl(Dsubject.Inscribeds.ToList());
             return sub;
         }
@@ -82,19 +84,19 @@ namespace Bl.BlImplemetiaon
         private List<BSubject> mapAll;
 
 
-        public List<BSubject> GetBySivog(SivogSubject sivog)
-        {
-            mapAll = ListToBl(_dsobject.GetAll());
-            if (sivog.City != null)
-                mapAll = GetSivog(x => x.City == sivog.City);
-            if (sivog.SortStudents != null)
-                mapAll = GetSivog(x => x.SortStudents == sivog.SortStudents);
-            if (sivog.Categury == null)
-                mapAll = GetSivog(x => x.Categury == sivog.Categury);
-            return mapAll;
-        }
-        private List<BSubject> GetSivog(Predicate<BSubject> sivog) =>
-            ListToBl(_dsobject.GetAll().ToList<MySubject>()).FindAll(sivog);
+        //public List<BSubject> GetBySivog(SivogSubject sivog)
+        //{
+        //    mapAll = ListToBl(_dsobject.GetAll());
+        //    if (sivog.City != null)
+        //        mapAll = GetSivog(x => x.City == sivog.City);
+        //    if (sivog.SortStudents != null)
+        //        mapAll = GetSivog(x => x.SortStudents == sivog.SortStudents);
+        //    if (sivog.Categury == null)
+        //        mapAll = GetSivog(x => x.Categury == sivog.Categury);
+        //    return mapAll;
+        //}
+        //private List<BSubject> GetSivog(Predicate<BSubject> sivog) =>
+        //    ListToBl(_dsobject.GetAll().ToList<MySubject>()).FindAll(sivog);
 
         public List<BSubject>? GetByName(string name) =>
           ListToBl(_dsobject.GetByName(name));
@@ -102,7 +104,7 @@ namespace Bl.BlImplemetiaon
         public int Post(BSubject subject)
         {
             int code = _dsobject.Post(ConvertToDal(subject));
-            _new.ListNewSubjectByCode.Add(code);
+           //_new.ListNewSubjectByCode.Add(code);
             return code;
         }
 
@@ -149,6 +151,9 @@ namespace Bl.BlImplemetiaon
 
         public bool Put(BSubject item) =>
             _dsobject.Put(ConvertToDal(item));
+
+        public bool Delet(BSubject s)=>   
+            _dsobject.Delete(ConvertToDal(s));
         
     }
 }

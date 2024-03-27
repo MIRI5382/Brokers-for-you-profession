@@ -10,13 +10,13 @@ namespace Bl.BlImplemetiaon
     public class ServiceBInscribed : IBInscribed
     {
         private DalManager _dm;
-        private IInscribed _dInscribed;
+        private IdInscribed _dInscribed;
 
 
-        public ServiceBInscribed(DalManager dm, IInscribed dInscribed)
+        public ServiceBInscribed(DalManager dm)
         {
             _dm = dm;
-            _dInscribed = dInscribed;
+            _dInscribed = dm.SInscribed;
         }
         public Inscribed ConvertToDal(BInscribed bInscribed)
         {

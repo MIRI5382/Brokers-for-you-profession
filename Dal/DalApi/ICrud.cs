@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace Dal.DalApi
 {
-    public interface ICrud<T>
+    public interface IdCrud<T>
     {
         public List<T>? GetAll();
-        //public T? GetById(T t);
         public bool Put(T t);//עדכון
         public int Post(T t);
-        public bool Delete(T t);
+        //public bool Delete(T t);
 
 
     }

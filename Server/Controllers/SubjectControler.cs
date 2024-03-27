@@ -10,7 +10,7 @@ namespace Server.Controllers
     [ApiController]
     public class SubjectControler: ControllerBase
     {
-        private ISubject bl;
+        private IbSubject bl;
         public SubjectControler(BlManager bl) 
         {
             this.bl = bl.blsubjects;
@@ -19,11 +19,11 @@ namespace Server.Controllers
         [HttpGet]
         public List<BSubject>? GetAllSubject() =>      
             bl.GetAll();
-
-        [Route("GetBySivog")]
-        [HttpPost]
-        public List<BSubject> GetSubjectBySivog(SivogSubject s) => 
-            bl.GetBySivog(s);
+        //in react
+        //[Route("GetBySivog")]
+        //[HttpPost]
+        //public List<BSubject> GetSubjectBySivog(SivogSubject s) => 
+        //    bl.GetBySivog(s);
 
         [Route("GetSubjectByName")]
         [HttpGet]
@@ -50,6 +50,11 @@ namespace Server.Controllers
         [HttpPut]
         public bool Put(BSubject b) =>
             bl.Put(b);
+
+        [Route("delete")]
+        [HttpDelete]
+        public bool Delete(BSubject b) =>
+            bl.Delet(b);
 
     }
 }

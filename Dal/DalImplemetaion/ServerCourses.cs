@@ -5,21 +5,31 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dal.DalImplemetaion
 {
-    public class ServerCourses : ICourses
+    public class ServerCourses : IdCourses
     {
         private dbcontext db;
         private int count = 0;
-        private ServerSubject _subjectSetv;
-        private ServerTime _time;
 
-        public ServerCourses(dbcontext db, ServerSubject subject)
+        private IdTime _time;
+        private bool r;
+
+        public ServerCourses(dbcontext db, IdTime time)
         {
             this.db = db;
-            this._subjectSetv = subject;
+
+            this._time = time;
         }
-        public bool Delete(Course t)
+        public bool Delete(ICollection<Course> t)
         {
-            db.Courses.Remove(t);
+            foreach (Course c in t)
+            {
+                db.Courses.Remove(c);
+                if (c.Times.Count > 0) 
+                { 
+                    r= _time.Delete(c.Times);
+                    if (!r) { return r; }
+                }
+            }     
             db.SaveChanges();
             return true;
         }
@@ -53,16 +63,16 @@ namespace Dal.DalImplemetaion
 
         public int Post(Course t)
         {
-            db.Courses.Add(t);
-            Course? c = db.Courses.ToList<Course>().FirstOrDefault(x => x == t);
-            MySubject? sub = _subjectSetv?.GetAll()?.FirstOrDefault(x => x.CodeSubject == t.CodeSubject);
-            sub?.Courses.Add(t);
+            var x = db.Courses.Add(t);
+            // Course? c = db.Courses.ToList<Course>().FirstOrDefault(x => x == t);
+            //MySubject? sub = _subject?.GetAll()?.FirstOrDefault(x => x.CodeSubject == t.CodeSubject);
+            // sub?.Courses.Add(t);
             db.SaveChanges();
-            return c.CodeCourse;
+            return x.Entity.CodeCourse;
         }
         public List<Course>? GetAll() =>
             db.Courses.Include(x => x.Times).ToList<Course>();
 
-       
+
     }
 }
