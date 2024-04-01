@@ -22,10 +22,11 @@ namespace Dal.DalImplemetaion
         }
         public bool Delete(MySubject t)
         {
-            if(t.Inscribeds.Count > 0) { return false; } 
-            db.MySubjects.Remove(t);
-            if(t.Courses.Count > 0) { return _courses.Delete(t.Courses) ; }
-            if (t.GivenCourses.Count > 0) { return _givencors.Delete(t.GivenCourses); }
+            var n = t;
+            if(n.Inscribeds.Count > 0) { return false; } 
+            db.MySubjects.Remove(n);
+            if(n.Courses.Count > 0) { return _courses.Delete(n.Courses) ; }
+            if (n.GivenCourses.Count > 0) { return _givencors.Delete(n.GivenCourses); }
             db.SaveChanges();
             return true;
         }
