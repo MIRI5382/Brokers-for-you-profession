@@ -38,7 +38,7 @@ namespace Bl.BlImplemetiaon
             List<BlTime> lst = new();
             foreach (Time t2 in t)
             {
-                ConvertToBl(t2);
+                lst.Add(ConvertToBl(t2));
             }
             return lst;
         }

@@ -64,9 +64,7 @@ namespace Dal.DalImplemetaion
         public int Post(Course t)
         {
             var x = db.Courses.Add(t);
-            // Course? c = db.Courses.ToList<Course>().FirstOrDefault(x => x == t);
-            //MySubject? sub = _subject?.GetAll()?.FirstOrDefault(x => x.CodeSubject == t.CodeSubject);
-            // sub?.Courses.Add(t);
+            if (x == null) return 0;
             db.SaveChanges();
             return x.Entity.CodeCourse;
         }
