@@ -12,6 +12,7 @@ namespace Dal.Do
         public int? InscribedSubjectCode { get; set; }
         public string? PhoneInscribed { get; set; }
         public string? Tests { get; set; }
+        public string? FileToMatch { get; set; }
 
         public virtual MySubject? InscribedSubjectCodeNavigation { get; set; }
     }

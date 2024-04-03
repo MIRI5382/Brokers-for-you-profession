@@ -15,6 +15,8 @@ namespace Dal
         public IdTest SIdtest { get; }
         public IDQweshten SIdqweshten { get; }
         public IdAnswor SIdAnswor { get; }
+        public IdYrapholojist SIdYrapholojist { get; }
+        public IdToMatch SIdToMatch { get; }
 
         public DalManager()
         { 
@@ -29,6 +31,8 @@ namespace Dal
             servCollect.AddSingleton<IdTest, ServerTest>();
             servCollect.AddSingleton<IDQweshten, ServerQrashten>();
             servCollect.AddSingleton<IdAnswor, ServerAnswor>();
+            servCollect.AddSingleton<IdYrapholojist, ServerYrapholojist>();
+            servCollect.AddSingleton<IdToMatch, ServesToMatch>();
             //בנית מנהל של סרויסים
             var serviceprovider = servCollect.BuildServiceProvider();
             //נגשים לאוביקט שהפרווידר מנהל
@@ -40,6 +44,8 @@ namespace Dal
             SIdtest = serviceprovider.GetRequiredService<IdTest>();
             SIdqweshten = serviceprovider.GetRequiredService<IDQweshten>();
             SIdAnswor = serviceprovider.GetRequiredService<IdAnswor>();
+            SIdYrapholojist = serviceprovider.GetRequiredService<IdYrapholojist>();
+            SIdToMatch = serviceprovider.GetRequiredService<IdToMatch>();
 
         }
 

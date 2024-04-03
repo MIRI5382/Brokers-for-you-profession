@@ -25,6 +25,8 @@ namespace Dal.Do
         public virtual DbSet<Qrashten> Qrashtens { get; set; } = null!;
         public virtual DbSet<Test> Tests { get; set; } = null!;
         public virtual DbSet<Time> Times { get; set; } = null!;
+        public virtual DbSet<ToMatch> ToMatches { get; set; } = null!;
+        public virtual DbSet<Yrapholojist> Yrapholojists { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -135,6 +137,10 @@ namespace Dal.Do
                     .HasColumnName("tzInscribed");
 
                 entity.Property(e => e.Age).HasColumnName("age");
+
+                entity.Property(e => e.FileToMatch)
+                    .HasMaxLength(25)
+                    .HasColumnName("fileToMatch");
 
                 entity.Property(e => e.InscribedName)
                     .HasMaxLength(9)
@@ -279,6 +285,53 @@ namespace Dal.Do
                     .WithMany(p => p.Times)
                     .HasForeignKey(d => d.CodeCourse)
                     .HasConstraintName("FK__Times__codeCours__619B8048");
+            });
+
+            modelBuilder.Entity<ToMatch>(entity =>
+            {
+                entity.HasKey(e => e.CodToMatch)
+                    .HasName("PK__tmp_ms_x__A23571A0705250C6");
+
+                entity.ToTable("ToMatch");
+
+                entity.Property(e => e.CodToMatch).HasColumnName("codToMatch");
+
+                entity.Property(e => e.FileToMatch)
+                    .HasMaxLength(25)
+                    .HasColumnName("fileToMatch");
+
+                entity.Property(e => e.Sort)
+                    .HasMaxLength(10)
+                    .HasColumnName("sort");
+
+                entity.Property(e => e.TzYrapholojist)
+                    .HasMaxLength(9)
+                    .HasColumnName("tzYrapholojist");
+
+                entity.Property(e => e.WoritMatch)
+                    .HasMaxLength(200)
+                    .HasColumnName("woritMatch");
+
+                entity.HasOne(d => d.TzYrapholojistNavigation)
+                    .WithMany(p => p.ToMatches)
+                    .HasForeignKey(d => d.TzYrapholojist)
+                    .HasConstraintName("FK__ToMatch__tzYraph__03F0984C");
+            });
+
+            modelBuilder.Entity<Yrapholojist>(entity =>
+            {
+                entity.HasKey(e => e.TzYrapholojist)
+                    .HasName("PK__Yrapholo__B9B24CF97ED8BA77");
+
+                entity.ToTable("Yrapholojist");
+
+                entity.Property(e => e.TzYrapholojist)
+                    .HasMaxLength(9)
+                    .HasColumnName("tzYrapholojist");
+
+                entity.Property(e => e.Sort)
+                    .HasMaxLength(10)
+                    .HasColumnName("sort");
             });
 
             OnModelCreatingPartial(modelBuilder);
