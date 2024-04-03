@@ -24,12 +24,12 @@ namespace Dal.DalImplemetaion
             foreach (Course c in t)
             {
                 db.Courses.Remove(c);
-                if (c.Times.Count > 0) 
-                { 
-                    r= _time.Delete(c.Times);
+                if (c.Times.Count > 0)
+                {
+                    r = _time.Delete(c.Times);
                     if (!r) { return r; }
                 }
-            }     
+            }
             db.SaveChanges();
             return true;
         }
@@ -65,7 +65,11 @@ namespace Dal.DalImplemetaion
         {
             var x = db.Courses.Add(t);
             if (x == null) return 0;
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception ex) { return 0; }
             return x.Entity.CodeCourse;
         }
         public List<Course>? GetAll() =>

@@ -47,8 +47,13 @@ namespace Dal.DalImplemetaion
 
         public int Post(Inscribed t)
         {
-            db.Inscribeds.Add(t);
-            db.SaveChanges();
+            var n = t;
+            db.Inscribeds.Add(n);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception ex) { return -1; }
             db.Inscribeds.ToList<Inscribed>().ForEach(x => count++);
             return count;
         }

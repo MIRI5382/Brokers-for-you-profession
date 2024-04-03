@@ -16,11 +16,14 @@ namespace Dal.Do
         {
         }
 
+        public virtual DbSet<Answor> Answors { get; set; } = null!;
         public virtual DbSet<Course> Courses { get; set; } = null!;
         public virtual DbSet<GivenCourse> GivenCourses { get; set; } = null!;
         public virtual DbSet<Inscribed> Inscribeds { get; set; } = null!;
         public virtual DbSet<Level> Levels { get; set; } = null!;
         public virtual DbSet<MySubject> MySubjects { get; set; } = null!;
+        public virtual DbSet<Qrashten> Qrashtens { get; set; } = null!;
+        public virtual DbSet<Test> Tests { get; set; } = null!;
         public virtual DbSet<Time> Times { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -34,6 +37,29 @@ namespace Dal.Do
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Answor>(entity =>
+            {
+                entity.HasKey(e => e.CodAnswor)
+                    .HasName("PK__Answor__E3F7562A5A1BE34B");
+
+                entity.ToTable("Answor");
+
+                entity.Property(e => e.CodAnswor).HasColumnName("codAnswor");
+
+                entity.Property(e => e.Aswor)
+                    .HasMaxLength(50)
+                    .HasColumnName("aswor");
+
+                entity.Property(e => e.CodTest).HasColumnName("codTest");
+
+                entity.Property(e => e.GredToAnswor).HasColumnName("gredToAnswor");
+
+                entity.HasOne(d => d.CodTestNavigation)
+                    .WithMany(p => p.Answors)
+                    .HasForeignKey(d => d.CodTest)
+                    .HasConstraintName("FK__Answor__codTest__7A672E12");
+            });
+
             modelBuilder.Entity<Course>(entity =>
             {
                 entity.HasKey(e => e.CodeCourse)
@@ -197,6 +223,41 @@ namespace Dal.Do
                 entity.Property(e => e.Tests)
                     .HasMaxLength(20)
                     .HasColumnName("tests");
+            });
+
+            modelBuilder.Entity<Qrashten>(entity =>
+            {
+                entity.HasKey(e => e.CodeQrashten)
+                    .HasName("PK__tmp_ms_x__CD21B8D1F43DC975");
+
+                entity.Property(e => e.CodeQrashten).HasColumnName("codeQrashten");
+
+                entity.Property(e => e.CodeTest).HasColumnName("codeTest");
+
+                entity.Property(e => e.Qrashten1)
+                    .HasMaxLength(50)
+                    .HasColumnName("qrashten");
+
+                entity.HasOne(d => d.CodeTestNavigation)
+                    .WithMany(p => p.Qrashtens)
+                    .HasForeignKey(d => d.CodeTest)
+                    .HasConstraintName("FK__Qrashtens__codeT__778AC167");
+            });
+
+            modelBuilder.Entity<Test>(entity =>
+            {
+                entity.HasKey(e => e.CodeTest)
+                    .HasName("PK__Tests__99CE55DAE9440AA4");
+
+                entity.Property(e => e.CodeTest).HasColumnName("codeTest");
+
+                entity.Property(e => e.CodeSubject).HasColumnName("codeSubject");
+
+                entity.HasOne(d => d.CodeSubjectNavigation)
+                    .WithMany(p => p.TestsNavigation)
+                    .HasForeignKey(d => d.CodeSubject)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Tests__codeSubje__6FE99F9F");
             });
 
             modelBuilder.Entity<Time>(entity =>

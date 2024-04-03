@@ -16,16 +16,16 @@ namespace Dal.DalImplemetaion
         public ServerSubject(dbcontext db, IdInscribed Inscribed, IdCourses courses, IdGivenCourses currsesManagers)
         {
             this.db = db;
-            _Inscribed= Inscribed;
-            _courses= courses;
+            _Inscribed = Inscribed;
+            _courses = courses;
             _givencors = currsesManagers;
         }
         public bool Delete(MySubject t)
         {
             var n = t;
-            if(n.Inscribeds.Count > 0) { return false; } 
+            if (n.Inscribeds.Count > 0) { return false; }
             db.MySubjects.Remove(n);
-            if(n.Courses.Count > 0) { return _courses.Delete(n.Courses) ; }
+            if (n.Courses.Count > 0) { return _courses.Delete(n.Courses); }
             if (n.GivenCourses.Count > 0) { return _givencors.Delete(n.GivenCourses); }
             db.SaveChanges();
             return true;
@@ -44,50 +44,46 @@ namespace Dal.DalImplemetaion
 
         public int Post(MySubject t)
         {
-            var newt = db.MySubjects.Add(t);
-            db.SaveChanges();
-            db.MySubjects.ToList<MySubject>().ForEach(x => count++);
-            return newt.Entity.CodeSubject;
+            try
+            {
+                var n = t;
+                var newt = db.MySubjects.Add(n);
+                if (newt == null) return 0;
+                db.SaveChanges();
+                return newt.Entity.CodeSubject;
+            }
+            catch { return 0; }
         }
 
         public bool Put(MySubject t)
         {
             MySubject? my = db.MySubjects.ToList<MySubject>().Find(x => x.CodeSubject == t.CodeSubject);
-            if (my != null||t!=null)
+            if (my != null || t != null)
             {
-                if (t.SubjectName != null)
-                    my.SubjectName = t.SubjectName;
-                if (t.SortStudents != null)
-                    my.SortStudents = t.SortStudents;
-                if (t.Price != null)
-                    my.Price = t.Price;
-                if (t.Place != null)
-                    my.Place = t.Place;
-                if (t.City != null)
-                    my.City = t.City;
-                if (t.Tests != null)
-                    my.Tests = t.Tests;
-                if (t.LengthOf != null)
-                    my.LengthOf = t.LengthOf;
-                if (t.ContactMan != null)
-                    my.ContactMan = t.ContactMan;
-                if (t.ContactManPhone != null)
-                    my.ContactManPhone = t.ContactManPhone;
-                if (t.MaxNumInscribed != null)
-                    my.MaxNumInscribed = t.MaxNumInscribed;
-                if (t.NumInscribed != null)
-                    my.NumInscribed = t.NumInscribed;
-                if (t.Categury != null)
-                    my.Categury = t.Categury;
-                if (t.GivenCourses != null)
-                    my.GivenCourses = t.GivenCourses;
+                my.SubjectName = t.SubjectName;
+                my.SortStudents = t.SortStudents;
+                my.Price = t.Price;
+                my.Place = t.Place;
+                my.City = t.City;
+                my.Tests = t.Tests;
+                my.LengthOf = t.LengthOf;
+                my.ContactMan = t.ContactMan;
+                my.ContactManPhone = t.ContactManPhone;
+                my.MaxNumInscribed = t.MaxNumInscribed;
+                my.NumInscribed = t.NumInscribed;
+                my.Categury = t.Categury;
+                my.GivenCourses = t.GivenCourses;
                 if (t.Inscribeds != null)
                     _Inscribed.Put(((Inscribed)t.Inscribeds));
                 if (t.Courses != null)
                     _courses.Put(((Course)t.Courses));
                 if (t.GivenCourses != null)
                     _givencors.Put(((GivenCourse)t.GivenCourses));
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch { return false; }
                 return true;
             }
             else return false;

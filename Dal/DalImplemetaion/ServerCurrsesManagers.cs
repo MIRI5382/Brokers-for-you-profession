@@ -1,7 +1,6 @@
 ﻿
 using Dal.DalApi;
 using Dal.Do;
-using System.Collections.ObjectModel;
 
 namespace Dal.DalImplemetaion
 {
@@ -17,9 +16,17 @@ namespace Dal.DalImplemetaion
         {
             foreach (GivenCourse g2 in g)
             {
-                db.GivenCourses.Remove(g2);
+                try
+                {
+                    db.GivenCourses.Remove(g2);
+                }
+                catch (Exception ex) { return false; }
             }
-            db.SaveChanges();         
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception ex) { return false; }
             return true;
         }
 
@@ -34,24 +41,25 @@ namespace Dal.DalImplemetaion
             GivenCourse? my = db.GivenCourses.ToList<GivenCourse>().Find(x => x.TzGivenCourses == t.TzGivenCourses);
             if (my != null || t != null)
             {
-                if (t.NameOfGivenCourses != null)
+                try
+                {
                     my.NameOfGivenCourses = t.NameOfGivenCourses;
-                if (t.PhoneOfGivenCourses != null)
                     my.PhoneOfGivenCourses = t.PhoneOfGivenCourses;
-                if (t.CodeSubject != null)
                     my.CodeSubject = t.CodeSubject;
-                db.SaveChanges();
-                return true;
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception ex) { return false; }
             }
             else return false;
         }
 
         public int Post(GivenCourse g)
         {
-            db.GivenCourses.Add(g);
-            //MySubject? mysub = db.MySubjects.FirstOrDefault(x => x.CodeSubject == g.CodeSubject);
-            //mysub?.GivenCourses.Add(g);
-            db.SaveChanges();
+            var n = g;
+            try { 
+            db.GivenCourses.Add(n);
+            db.SaveChanges();}catch (Exception ex) {return 0;}
             return 1;
         }
     }

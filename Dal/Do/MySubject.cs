@@ -10,6 +10,7 @@ namespace Dal.Do
             Courses = new HashSet<Course>();
             GivenCourses = new HashSet<GivenCourse>();
             Inscribeds = new HashSet<Inscribed>();
+            TestsNavigation = new HashSet<Test>();
         }
 
         public int CodeSubject { get; set; }
@@ -29,5 +30,6 @@ namespace Dal.Do
         public virtual ICollection<Course> Courses { get; set; }
         public virtual ICollection<GivenCourse> GivenCourses { get; set; }
         public virtual ICollection<Inscribed> Inscribeds { get; set; }
+        public virtual ICollection<Test> TestsNavigation { get; set; }
     }
 }

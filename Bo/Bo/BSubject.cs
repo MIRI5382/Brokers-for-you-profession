@@ -26,6 +26,7 @@ namespace Bl.Bo
         public List<BCours>? SCourses { get;  set; }=new List<BCours>();
         public List<BInscribed>? SInscribed { get;  set; }=new List<BInscribed>();
         public List<BlGivenCourse>? SGivenCourse { get;  set; }=new List<BlGivenCourse>();
+        public List<BTast>? SbTast { get; set; } = new List<BTast>();
 
     }
 }

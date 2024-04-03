@@ -14,6 +14,9 @@ namespace Bo
         public IbGivensubject blgivensubject { get; }
         public IbTime bltime { get; }
         public IBInscribed blinscribed { get; }
+        public IbTest bltast { get; }
+        public IbQreshten blqrashten { get; }
+        public IBAnswor blanswor { get; }
         public BlManager() 
         {
             //ריכוז של כל השרותים שצריך לרשימה אחת
@@ -24,7 +27,10 @@ namespace Bo
             servBCollection.AddSingleton<IBInscribed, ServiceBInscribed>();
             servBCollection.AddSingleton<IbGivensubject,BServGivenCours>();
             servBCollection.AddSingleton<IbTime, SevicTime>();
-            
+            //servBCollection.AddSingleton<IbTest, ServerBTast>();
+            //servBCollection.AddSingleton<IbQreshten, ServerBQrashteb>();
+            //servBCollection.AddSingleton<IBAnswor, ServerBAnswor>();
+
 
             //בנית מנהל של סרויסים
             var servprovaider = servBCollection.BuildServiceProvider();
@@ -36,7 +42,10 @@ namespace Bo
             blgivensubject = servprovaider.GetRequiredService<IbGivensubject>();
             bltime=servprovaider.GetRequiredService<IbTime>();
             blinscribed=servprovaider.GetRequiredService<IBInscribed>();
-            
+            //bltast = servprovaider.GetRequiredService<IbTest>();
+            //blqrashten = servprovaider.GetRequiredService<IbQreshten>();
+            //blanswor = servprovaider.GetRequiredService<IBAnswor>();
+
 
         }
 

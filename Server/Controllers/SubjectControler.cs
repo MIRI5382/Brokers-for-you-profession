@@ -11,6 +11,7 @@ namespace Server.Controllers
     public class SubjectControler: ControllerBase
     {
         private IbSubject bl;
+        
         public SubjectControler(BlManager bl) 
         {
             this.bl = bl.blsubjects;
