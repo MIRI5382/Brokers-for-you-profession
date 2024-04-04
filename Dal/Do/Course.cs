@@ -19,7 +19,6 @@ namespace Dal.Do
         public string? SortCourse { get; set; }
 
         public virtual MySubject? CodeSubjectNavigation { get; set; }
-        public virtual Level? NumQualityNavigation { get; set; }
         public virtual ICollection<Time> Times { get; set; }
     }
 }

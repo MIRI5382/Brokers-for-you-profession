@@ -38,7 +38,6 @@ namespace Bl.BlImplemetiaon
             sub.City = bSubject.City;
             sub.Price = bSubject.Price;
             sub.SortStudents = bSubject.SortStudents;
-            sub.Tests = bSubject.Tests;
             sub.MaxNumInscribed = bSubject.MaxNumInscribed;
             sub.NumInscribed = bSubject.NumInscribed;
             sub.LengthOf = bSubject.LengthOf;
@@ -62,7 +61,6 @@ namespace Bl.BlImplemetiaon
             sub.City = Dsubject.City;
             sub.Price = Dsubject.Price;
             sub.SortStudents = Dsubject.SortStudents;
-            sub.Tests = Dsubject.Tests;
             sub.MaxNumInscribed = Dsubject.MaxNumInscribed;
             sub.NumInscribed = Dsubject.NumInscribed;
             sub.LengthOf = Dsubject.LengthOf;

@@ -17,6 +17,8 @@ namespace Bo
         public IbTest bltast { get; }
         public IbQreshten blqrashten { get; }
         public IBAnswor blanswor { get; }
+        public IBYrapholojist blYrapholojist { get; }
+        public IbToMatch blToMatch { get; }
         public BlManager() 
         {
             //ריכוז של כל השרותים שצריך לרשימה אחת
@@ -30,7 +32,8 @@ namespace Bo
             //servBCollection.AddSingleton<IbTest, ServerBTast>();
             //servBCollection.AddSingleton<IbQreshten, ServerBQrashteb>();
             //servBCollection.AddSingleton<IBAnswor, ServerBAnswor>();
-
+            //servBCollection.AddSingleton<IBYrapholojist, ServisBYrapholojist>();
+            //servBCollection.AddSingleton<IbToMatch, ServicBToMatch>();
 
             //בנית מנהל של סרויסים
             var servprovaider = servBCollection.BuildServiceProvider();
@@ -45,7 +48,8 @@ namespace Bo
             //bltast = servprovaider.GetRequiredService<IbTest>();
             //blqrashten = servprovaider.GetRequiredService<IbQreshten>();
             //blanswor = servprovaider.GetRequiredService<IBAnswor>();
-
+            //blYrapholojist = servprovaider.GetRequiredService<IBYrapholojist>();
+            //blToMatch = servprovaider.GetRequiredService<IbToMatch>();
 
         }
 

@@ -20,7 +20,6 @@ namespace Dal.Do
         public virtual DbSet<Course> Courses { get; set; } = null!;
         public virtual DbSet<GivenCourse> GivenCourses { get; set; } = null!;
         public virtual DbSet<Inscribed> Inscribeds { get; set; } = null!;
-        public virtual DbSet<Level> Levels { get; set; } = null!;
         public virtual DbSet<MySubject> MySubjects { get; set; } = null!;
         public virtual DbSet<Qrashten> Qrashtens { get; set; } = null!;
         public virtual DbSet<Test> Tests { get; set; } = null!;
@@ -95,11 +94,6 @@ namespace Dal.Do
                     .WithMany(p => p.Courses)
                     .HasForeignKey(d => d.CodeSubject)
                     .HasConstraintName("FK__Course__codeSubj__59FA5E80");
-
-                entity.HasOne(d => d.NumQualityNavigation)
-                    .WithMany(p => p.Courses)
-                    .HasForeignKey(d => d.NumQuality)
-                    .HasConstraintName("FK__Course__numQuali__5AEE82B9");
             });
 
             modelBuilder.Entity<GivenCourse>(entity =>
@@ -167,20 +161,6 @@ namespace Dal.Do
                     .HasConstraintName("FK__Inscribed__Inscr__5165187F");
             });
 
-            modelBuilder.Entity<Level>(entity =>
-            {
-                entity.HasKey(e => e.Num)
-                    .HasName("PK__Levels__DF908D650E2B1A2C");
-
-                entity.Property(e => e.Num)
-                    .ValueGeneratedNever()
-                    .HasColumnName("num");
-
-                entity.Property(e => e.Descriptions)
-                    .HasMaxLength(12)
-                    .HasColumnName("descriptions");
-            });
-
             modelBuilder.Entity<MySubject>(entity =>
             {
                 entity.HasKey(e => e.CodeSubject)
@@ -225,10 +205,6 @@ namespace Dal.Do
                 entity.Property(e => e.SubjectName)
                     .HasMaxLength(20)
                     .HasColumnName("Subject_name");
-
-                entity.Property(e => e.Tests)
-                    .HasMaxLength(20)
-                    .HasColumnName("tests");
             });
 
             modelBuilder.Entity<Qrashten>(entity =>
@@ -259,8 +235,10 @@ namespace Dal.Do
 
                 entity.Property(e => e.CodeSubject).HasColumnName("codeSubject");
 
+                entity.Property(e => e.MoveGred).HasColumnName("moveGred");
+
                 entity.HasOne(d => d.CodeSubjectNavigation)
-                    .WithMany(p => p.TestsNavigation)
+                    .WithMany(p => p.Tests)
                     .HasForeignKey(d => d.CodeSubject)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Tests__codeSubje__6FE99F9F");
@@ -304,6 +282,10 @@ namespace Dal.Do
                     .HasMaxLength(10)
                     .HasColumnName("sort");
 
+                entity.Property(e => e.TzInscribed)
+                    .HasMaxLength(9)
+                    .HasColumnName("tzInscribed");
+
                 entity.Property(e => e.TzYrapholojist)
                     .HasMaxLength(9)
                     .HasColumnName("tzYrapholojist");
@@ -311,6 +293,11 @@ namespace Dal.Do
                 entity.Property(e => e.WoritMatch)
                     .HasMaxLength(200)
                     .HasColumnName("woritMatch");
+
+                entity.HasOne(d => d.TzInscribedNavigation)
+                    .WithMany(p => p.ToMatches)
+                    .HasForeignKey(d => d.TzInscribed)
+                    .HasConstraintName("FK__ToMatch__tzInscr__04E4BC85");
 
                 entity.HasOne(d => d.TzYrapholojistNavigation)
                     .WithMany(p => p.ToMatches)

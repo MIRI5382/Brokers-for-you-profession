@@ -5,6 +5,11 @@ namespace Dal.Do
 {
     public partial class Inscribed
     {
+        public Inscribed()
+        {
+            ToMatches = new HashSet<ToMatch>();
+        }
+
         public string TzInscribed { get; set; } = null!;
         public string? InscribedName { get; set; }
         public int? Age { get; set; }
@@ -15,5 +20,6 @@ namespace Dal.Do
         public string? FileToMatch { get; set; }
 
         public virtual MySubject? InscribedSubjectCodeNavigation { get; set; }
+        public virtual ICollection<ToMatch> ToMatches { get; set; }
     }
 }

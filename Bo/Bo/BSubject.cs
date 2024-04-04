@@ -16,7 +16,6 @@ namespace Bl.Bo
         public int? Price { get; set; }
         public string? Place { get; set; }
         public string? City { get; set; }
-        public string? Tests { get; set; }
         public double? LengthOf { get; set; }
         public string? ContactMan { get; set; }
         public string? ContactManPhone { get; set; }

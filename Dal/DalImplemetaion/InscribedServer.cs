@@ -1,6 +1,7 @@
 ﻿
 using Dal.DalApi;
 using Dal.Do;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dal.DalImplemetaion
 {
@@ -23,7 +24,7 @@ namespace Dal.DalImplemetaion
         }
 
         public List<Inscribed>? GetAll() =>
-            db.Inscribeds.ToList<Inscribed>();
+            db.Inscribeds.Include(x=>x.ToMatches).ToList<Inscribed>();
 
         public Inscribed? GetById(string t) =>
             db.Inscribeds.ToList<Inscribed>().Find(x => x.TzInscribed == t);
