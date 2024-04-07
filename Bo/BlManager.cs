@@ -29,11 +29,12 @@ namespace Bo
             servBCollection.AddSingleton<IBInscribed, ServiceBInscribed>();
             servBCollection.AddSingleton<IbGivensubject,BServGivenCours>();
             servBCollection.AddSingleton<IbTime, SevicTime>();
-            //servBCollection.AddSingleton<IbTest, ServerBTast>();
-            //servBCollection.AddSingleton<IbQreshten, ServerBQrashteb>();
-            //servBCollection.AddSingleton<IBAnswor, ServerBAnswor>();
-            //servBCollection.AddSingleton<IBYrapholojist, ServisBYrapholojist>();
-            //servBCollection.AddSingleton<IbToMatch, ServicBToMatch>();
+            servBCollection.AddSingleton<IbTest, ServerBTast>();
+            servBCollection.AddSingleton<IbQreshten, ServerBQrashteb>();
+            servBCollection.AddSingleton<IBAnswor, ServerBAnswor>();
+            servBCollection.AddSingleton<IBYrapholojist, ServisBYrapholojist>();
+            servBCollection.AddSingleton<IbToMatch, ServicBToMatch>();
+            servBCollection.AddSingleton<IbToMatch, ServicBToMatch>();
 
             //בנית מנהל של סרויסים
             var servprovaider = servBCollection.BuildServiceProvider();
@@ -45,20 +46,20 @@ namespace Bo
             blgivensubject = servprovaider.GetRequiredService<IbGivensubject>();
             bltime=servprovaider.GetRequiredService<IbTime>();
             blinscribed=servprovaider.GetRequiredService<IBInscribed>();
-            //bltast = servprovaider.GetRequiredService<IbTest>();
-            //blqrashten = servprovaider.GetRequiredService<IbQreshten>();
-            //blanswor = servprovaider.GetRequiredService<IBAnswor>();
-            //blYrapholojist = servprovaider.GetRequiredService<IBYrapholojist>();
-            //blToMatch = servprovaider.GetRequiredService<IbToMatch>();
+            bltast = servprovaider.GetRequiredService<IbTest>();
+            blqrashten = servprovaider.GetRequiredService<IbQreshten>();
+            blanswor = servprovaider.GetRequiredService<IBAnswor>();
+            blYrapholojist = servprovaider.GetRequiredService<IBYrapholojist>();
+            blToMatch = servprovaider.GetRequiredService<IbToMatch>();
 
         }
 
 
-        
 
 
 
-       
+
+
 
     }
 }

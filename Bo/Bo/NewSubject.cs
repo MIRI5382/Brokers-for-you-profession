@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Bl.Bo
 {
-    public class NewSubject
+    public static class NewSubject
     {
-        public NewSubject() { }
-        public List<int> ListNewSubjectByCode { get; set; }= new List<int>();   
+        public  static List<BSubject> ListNewSubjectByCode { get; set; }= new List<BSubject>();   
     }
 }

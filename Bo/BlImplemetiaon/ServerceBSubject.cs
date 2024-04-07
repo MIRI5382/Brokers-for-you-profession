@@ -14,7 +14,6 @@ namespace Bl.BlImplemetiaon
         private IbCours _serverBCours;
         private IBInscribed _inscribed;
         private IbGivensubject _biGivenCours;
-        private NewSubject _new;
         public ServerceBSubject(IbGivensubject bServGivenCours, DalManager dM, IbCours serverBCours, IBInscribed inscribed)
         {
             _dManager = dM;
@@ -22,6 +21,7 @@ namespace Bl.BlImplemetiaon
             _inscribed = inscribed;
             _biGivenCours = bServGivenCours;
             _dsobject = dM.SSubject;
+            
         }
         private List<BInscribed>? listGiven = new();
         public MySubject ConvertToDal(BSubject bSubject)
@@ -102,7 +102,7 @@ namespace Bl.BlImplemetiaon
         public int Post(BSubject subject)
         {
             int code = _dsobject.Post(ConvertToDal(subject));
-           //_new.ListNewSubjectByCode.Add(code);
+            NewSubject.ListNewSubjectByCode.Add(subject);
             return code;
         }
 
@@ -134,24 +134,18 @@ namespace Bl.BlImplemetiaon
             }
             return lst;
         }
-        public List<BSubject>? GetNewSubject()
-        {
-            List<BSubject> l = GetAll();
-            List<BSubject> f = new List<BSubject>();
-            _new.ListNewSubjectByCode.ForEach(n => l.ForEach(Bsub =>
-            {
-                if (n == Bsub.CodeSubject)
-                    f.Add(Bsub);
-            }
-            ));
-            return f;
-        }
+        public List<BSubject>? GetNewSubject()=>     
+             NewSubject.ListNewSubjectByCode;
+          
+  
 
         public bool Put(BSubject item) =>
             _dsobject.Put(ConvertToDal(item));
 
-        public bool Delet(BSubject s)=>   
-            _dsobject.Delete(ConvertToDal(s));
-        
+        public bool Delet(BSubject s)
+        {
+            var R = _dsobject?.GetAll()?.Find(X => X.CodeSubject.Equals(s.CodeSubject));
+            return _dsobject.Delete(R);
+        }
     }
 }
