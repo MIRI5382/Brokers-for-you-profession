@@ -14,14 +14,15 @@ namespace Bl.BlImplemetiaon
         private IbCours _serverBCours;
         private IBInscribed _inscribed;
         private IbGivensubject _biGivenCours;
-        public ServerceBSubject(IbGivensubject bServGivenCours, DalManager dM, IbCours serverBCours, IBInscribed inscribed)
+        private IbTest _btest;
+        public ServerceBSubject(IbTest btest,IbGivensubject bServGivenCours, DalManager dM, IbCours serverBCours, IBInscribed inscribed)
         {
             _dManager = dM;
             _serverBCours = serverBCours;
             _inscribed = inscribed;
             _biGivenCours = bServGivenCours;
             _dsobject = dM.SSubject;
-            
+            _btest=btest;
         }
         private List<BInscribed>? listGiven = new();
         public MySubject ConvertToDal(BSubject bSubject)
@@ -68,6 +69,7 @@ namespace Bl.BlImplemetiaon
             //sub.SGivenCourse = ((BServGivenCours)_biGivenCours).ConvertToBl(Dsubject.GivenCourses.First(x => x.PhoneOfGivenCourses != null));
             sub.SGivenCourse = ((BServGivenCours)_biGivenCours).ListToBl(Dsubject.GivenCourses.ToList());
             sub.SInscribed = ((ServiceBInscribed)_inscribed).ListToBl(Dsubject.Inscribeds.ToList());
+            sub.SbTast = ((ServerBTast)_btest).ListToBl(Dsubject.Tests.ToList());
             return sub;
         }
         public List<BSubject> ListToBl(List<MySubject> list)
@@ -134,9 +136,12 @@ namespace Bl.BlImplemetiaon
             }
             return lst;
         }
-        public List<BSubject>? GetNewSubject()=>     
-             NewSubject.ListNewSubjectByCode;
-          
+        public List<BSubject>? GetNewSubject()
+        {
+            if (NewSubject.ListNewSubjectByCode.Count > 0)
+                return NewSubject.ListNewSubjectByCode;
+           return null;
+        }
   
 
         public bool Put(BSubject item) =>

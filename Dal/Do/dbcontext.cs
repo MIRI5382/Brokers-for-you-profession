@@ -51,9 +51,16 @@ namespace Dal.Do
                     .HasMaxLength(50)
                     .HasColumnName("aswor");
 
+                entity.Property(e => e.CodQreshten).HasColumnName("codQreshten");
+
                 entity.Property(e => e.CodTest).HasColumnName("codTest");
 
                 entity.Property(e => e.GredToAnswor).HasColumnName("gredToAnswor");
+
+                entity.HasOne(d => d.CodQreshtenNavigation)
+                    .WithMany(p => p.Answors)
+                    .HasForeignKey(d => d.CodQreshten)
+                    .HasConstraintName("FK__Answor__codQresh__05D8E0BE");
 
                 entity.HasOne(d => d.CodTestNavigation)
                     .WithMany(p => p.Answors)

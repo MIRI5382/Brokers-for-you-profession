@@ -35,6 +35,7 @@ namespace Dal.DalImplemetaion
             db.MySubjects.Include(x => x.Courses).ThenInclude(c => c.Times)
              .Include(x => x.Inscribeds)
              .Include(x => x.GivenCourses)
+             .Include(x => x.Tests)
            .ToList<MySubject>();
 
         public List<MySubject>? GetByName(string NameSubject) =>
