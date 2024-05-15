@@ -64,6 +64,11 @@ namespace Bl.BlImplemetiaon
         public bool Put(BlTime item)=>      
             _idtime.Put(ConvertToDal(item));
 
-        
+        public bool Delete(List<BlTime> item) =>
+            _idtime.Delete(ConvertTimeListToDal(item));
+
+        public bool DeleteOne(BlTime item) =>
+            _idtime.DeleteOne(ConvertToDal(item));
+
     }
 }

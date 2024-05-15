@@ -21,7 +21,19 @@ namespace Dal.DalImplemetaion
         }
         public bool Delete(ICollection<Course> t)
         {
-            foreach (Course c in t)
+            try
+            {
+                foreach (Course c in t)
+                {
+                    DeleteOne(c);
+                }
+            }
+            catch (Exception ex) { return false; }
+            return true;
+        }
+        public bool DeleteOne(Course c)
+        {
+            try
             {
                 db.Courses.Remove(c);
                 if (c.Times.Count > 0)
@@ -29,8 +41,9 @@ namespace Dal.DalImplemetaion
                     r = _time.Delete(c.Times);
                     if (!r) { return r; }
                 }
+                db.SaveChanges();
             }
-            db.SaveChanges();
+            catch (Exception ex) { return false; }
             return true;
         }
 

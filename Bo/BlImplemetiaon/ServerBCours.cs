@@ -47,7 +47,12 @@ namespace Bl.BlImplemetiaon
             bc.SortCourse = c.SortCourse;
             return bc;
         }
-
+        public List<Course> ListToDal(List<BCours> list)
+        {
+            List<Course> lst = new List<Course>();
+            list.ForEach(x => lst.Add(ConvertToDal(x)));
+            return lst;
+        }
 
         private object mapAll;
         public List<BCours> ListToBl(List<Course> list)
@@ -65,6 +70,10 @@ namespace Bl.BlImplemetiaon
 
         public bool Put(BCours item)=>
             _dcors.Put(ConvertToDal(item));
-       
+
+        public bool DeleteOne(BCours c) =>
+            _dcors.DeleteOne(ConvertToDal(c));
+        public bool Delete(List<BCours> t)=>
+           _dcors.Delete(ListToDal(t));
     }
 }

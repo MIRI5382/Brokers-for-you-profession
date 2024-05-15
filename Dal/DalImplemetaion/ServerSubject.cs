@@ -35,7 +35,7 @@ namespace Dal.DalImplemetaion
             db.MySubjects.Include(x => x.Courses).ThenInclude(c => c.Times)
              .Include(x => x.Inscribeds)
              .Include(x => x.GivenCourses)
-             .Include(x => x.Tests)
+             //.Include(x => x.Tests)
            .ToList<MySubject>();
 
         public List<MySubject>? GetByName(string NameSubject) =>
@@ -66,7 +66,7 @@ namespace Dal.DalImplemetaion
                 my.Price = t.Price;
                 my.Place = t.Place;
                 my.City = t.City;
-                my.Tests = t.Tests;
+                //my.Tests = t.Tests;
                 my.LengthOf = t.LengthOf;
                 my.ContactMan = t.ContactMan;
                 my.ContactManPhone = t.ContactManPhone;

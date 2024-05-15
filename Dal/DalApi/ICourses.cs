@@ -12,7 +12,9 @@ namespace Dal.DalApi
     {
         bool Delete(ICollection<Course> courses);
         public Course? GetById(int CodeCourse);
-        
+        bool DeleteOne(Course t);
+
+
 
     }
 }

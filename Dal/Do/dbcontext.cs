@@ -53,19 +53,12 @@ namespace Dal.Do
 
                 entity.Property(e => e.CodQreshten).HasColumnName("codQreshten");
 
-                entity.Property(e => e.CodTest).HasColumnName("codTest");
-
                 entity.Property(e => e.GredToAnswor).HasColumnName("gredToAnswor");
 
                 entity.HasOne(d => d.CodQreshtenNavigation)
                     .WithMany(p => p.Answors)
                     .HasForeignKey(d => d.CodQreshten)
                     .HasConstraintName("FK__Answor__codQresh__05D8E0BE");
-
-                entity.HasOne(d => d.CodTestNavigation)
-                    .WithMany(p => p.Answors)
-                    .HasForeignKey(d => d.CodTest)
-                    .HasConstraintName("FK__Answor__codTest__7A672E12");
             });
 
             modelBuilder.Entity<Course>(entity =>
@@ -206,7 +199,7 @@ namespace Dal.Do
                 entity.Property(e => e.Price).HasColumnName("price");
 
                 entity.Property(e => e.SortStudents)
-                    .HasMaxLength(4)
+                    .HasMaxLength(11)
                     .HasColumnName("sortStudents");
 
                 entity.Property(e => e.SubjectName)
