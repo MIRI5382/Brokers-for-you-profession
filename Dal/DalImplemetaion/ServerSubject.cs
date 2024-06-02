@@ -61,7 +61,9 @@ namespace Dal.DalImplemetaion
             MySubject? my = db.MySubjects.ToList<MySubject>().Find(x => x.CodeSubject == t.CodeSubject);
             if (my != null || t != null)
             {
-                my.SubjectName = t.SubjectName;
+                try
+                {
+                    my.SubjectName = t.SubjectName;
                 my.SortStudents = t.SortStudents;
                 my.Price = t.Price;
                 my.Place = t.Place;
@@ -73,15 +75,13 @@ namespace Dal.DalImplemetaion
                 my.MaxNumInscribed = t.MaxNumInscribed;
                 my.NumInscribed = t.NumInscribed;
                 my.Categury = t.Categury;
-                my.GivenCourses = t.GivenCourses;
-                if (t.Inscribeds != null)
-                    _Inscribed.Put(((Inscribed)t.Inscribeds));
-                if (t.Courses != null)
-                    _courses.Put(((Course)t.Courses));
-                if (t.GivenCourses != null)
-                    _givencors.Put(((GivenCourse)t.GivenCourses));
-                try
-                {
+                //if (t.Inscribeds.Count>0)
+                //    _Inscribed.Put(((Inscribed)t.Inscribeds));
+                //if (t.Courses.Count>0)
+                //    _courses.Put(((Course)t.Courses));
+                //if (t.GivenCourses.Count>0)
+                //    _givencors.Put(((GivenCourse)t.GivenCourses));
+               
                     db.SaveChanges();
                 }
                 catch { return false; }

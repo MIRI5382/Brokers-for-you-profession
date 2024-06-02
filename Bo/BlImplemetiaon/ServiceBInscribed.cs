@@ -48,6 +48,12 @@ namespace Bl.BlImplemetiaon
             list.ForEach(x => ls.Add(ConvertToBl(x)));
             return ls;
         }
+        public List<Inscribed> ListToDal(List<BInscribed> list)
+        {
+            List<Inscribed> ls = new();
+            list.ForEach(x => ls.Add(ConvertToDal(x)));
+            return ls;
+        }
         public int Post(BInscribed i) =>
             _dInscribed.Post(ConvertToDal(i));
 
@@ -57,6 +63,9 @@ namespace Bl.BlImplemetiaon
 
         public bool Put(BInscribed item) =>
         _dInscribed.Put(ConvertToDal(item));
+
+        public bool Delete(List<BInscribed> item) =>
+        _dInscribed.Delete(ListToDal(item));
 
 
     }

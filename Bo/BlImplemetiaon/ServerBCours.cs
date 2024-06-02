@@ -42,7 +42,8 @@ namespace Bl.BlImplemetiaon
             bc.DateOfCourseEnd = c.DateOfCourseEnd;
             bc.DateOfCourseStart = c.DateOfCourseStart;
             bc.NameOfCourse = c.NameOfCourse;
-            bc.Times = ((SevicTime)_iTime).ConvertTimeListToDal(c.Times.ToList());
+            if(c?.Times?.Count>0 )
+               bc.Times = ((SevicTime)_iTime).ConvertTimeListToDal(c.Times.ToList());
             bc.NumQuality = c.NumQuality;
             bc.SortCourse = c.SortCourse;
             return bc;

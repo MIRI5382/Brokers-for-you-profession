@@ -33,17 +33,21 @@ namespace Dal.DalImplemetaion
         }
         public bool DeleteOne(Course c)
         {
-            try
-            {
-                db.Courses.Remove(c);
-                if (c.Times.Count > 0)
-                {
-                    r = _time.Delete(c.Times);
-                    if (!r) { return r; }
-                }
-                db.SaveChanges();
-            }
-            catch (Exception ex) { return false; }
+            var d = db.Courses.FirstOrDefault(z=>z.CodeCourse== c.CodeCourse);
+            try {
+                if (d != null) 
+                    {
+                        db.Courses.Remove(d);
+                        if (c.Times.Count > 0)
+                        {
+                            r = _time.Delete(d.Times);
+                            if (!r) { return r; }
+                        }
+                        db.SaveChanges(); 
+                } else return false;
+            }catch (Exception ex) { return false; }
+           
+            
             return true;
         }
 
@@ -66,8 +70,6 @@ namespace Dal.DalImplemetaion
                     my.NumQuality = t.NumQuality;
                 if (t.SortCourse != null)
                     my.SortCourse = t.SortCourse;
-                if (t.Times != null)
-                    _time.Put((Time)t.Times);
                 db.SaveChanges();
                 return true;
             }

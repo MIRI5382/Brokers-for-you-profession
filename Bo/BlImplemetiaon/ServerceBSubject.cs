@@ -42,11 +42,10 @@ namespace Bl.BlImplemetiaon
             sub.MaxNumInscribed = bSubject.MaxNumInscribed;
             sub.NumInscribed = bSubject.NumInscribed;
             sub.LengthOf = bSubject.LengthOf;
-            if (bSubject.SCourses != null) bSubject.SCourses.ForEach(x => _serverBCours.Post(x));
-            if (bSubject.SInscribed != null) bSubject.SInscribed.ForEach(x => _inscribed.Post(x));
-            if (bSubject.SGivenCourse != null)
-                bSubject.SGivenCourse.ForEach(x => _biGivenCours.Post(x));
-            //sub.GivenCourses.Add(((BServGivenCours)_biGivenCours).ConvertToDal(bSubject.SGivenCourse));
+            if (bSubject?.SCourses?.Count > 0) bSubject.SCourses.ForEach(x => sub.Courses.Add(((ServerBCours)_serverBCours).ConvertToDal(x)));
+            if (bSubject?.SInscribed?.Count > 0) bSubject.SInscribed.ForEach(x => sub.Inscribeds.Add(((ServiceBInscribed)_inscribed).ConvertToDal(x)));
+            if (bSubject?.SGivenCourse?.Count > 0)
+                bSubject.SGivenCourse.ForEach(x => sub.GivenCourses.Add(((BServGivenCours)_biGivenCours).ConvertToDal(x)));
             return sub;
         }
 
@@ -104,7 +103,12 @@ namespace Bl.BlImplemetiaon
         public int Post(BSubject subject)
         {
             int code = _dsobject.Post(ConvertToDal(subject));
-            NewSubject.ListNewSubjectByCode.Add(subject);
+            if (code > 0)
+            {
+                if (NewSubject.ListNewSubjectByCode.Count > 10)
+                    NewSubject.ListNewSubjectByCode.Remove(NewSubject.ListNewSubjectByCode[9]);
+                NewSubject.ListNewSubjectByCode.Add(subject);
+            }
             return code;
         }
 
@@ -140,9 +144,9 @@ namespace Bl.BlImplemetiaon
         {
             if (NewSubject.ListNewSubjectByCode.Count > 0)
                 return NewSubject.ListNewSubjectByCode;
-           return null;
+            return null;
         }
-  
+
 
         public bool Put(BSubject item) =>
             _dsobject.Put(ConvertToDal(item));

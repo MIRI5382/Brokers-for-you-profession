@@ -17,14 +17,28 @@ namespace Dal.DalImplemetaion
         {
             foreach (Inscribed i2 in i)
             {
-                db.Inscribeds.Remove(i2);
+                DeleteOne(i2);
             }
             db.SaveChanges();
             return true;
         }
-
+        private bool DeleteOne(Inscribed i)
+        {
+            var n = db.Inscribeds.FirstOrDefault(x => x.TzInscribed == i.TzInscribed);
+            if (n != null)
+            {
+                try
+                {
+                    db.Inscribeds.Remove(n);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception e) { return false; }
+            }
+            return false;
+        }
         public List<Inscribed>? GetAll() =>
-            db.Inscribeds.Include(x=>x.ToMatches).ToList<Inscribed>();
+            db.Inscribeds.Include(x => x.ToMatches).ToList<Inscribed>();
 
         public Inscribed? GetById(string t) =>
             db.Inscribeds.ToList<Inscribed>().Find(x => x.TzInscribed == t);
